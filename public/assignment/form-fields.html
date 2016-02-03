@@ -67,46 +67,112 @@
             </ul>
 
             <form class="form-horizontal">
-                <br class="form-group">
-                    <label for="inputfirstname" class="col-sm-2 control-label">First Name:</label>
-                <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputfirstname" placeholder="First Name">
-                    </div>
 
-                <br class="form-group">
-                    <label for="inputlastname" class="col-sm-2 control-label">Last Name:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputlastname" placeholder="Last Name">
-                    </div>
 
                 <div class="form-group">
-                    <label for="inputdob" class="col-sm-2 control-label">Date of Birth:</label>
-                    <div class="col-sm-10">
-                        <input type="date" class="form-control" id="inputdob">
+                    <div class="col-sm-12">
+                    <label for="inputfirstname">First Name:</label></div>
+                <div class="col-sm-12">
+                        <input type="text"  id="inputfirstname" placeholder="First Name">
+                         <div class="pull-right">
+                         <span class="glyphicon glyphicon-pencil"></span>
+                         <span class="glyphicon glyphicon-plus"></span>
+                         <span class="glyphicon glyphicon-remove"></span>
+                         <span class="glyphicon glyphicon-align-justify"></span>
+                         </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                    <label for="inputlastname">Last Name:</label></div>
+                    <div class="col-sm-12">
+                        <input type="text"  id="inputlastname" placeholder="Last Name">
+                        <div class="pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                    <label for="inputdob">Date of Birth:</label></div>
+                    <div class="col-sm-12">
+                        <input type="date"  id="inputdob">
+                        <div class="pull-right">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Gender:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
+                    <label>Gender:</label></div>
+                    <div class="col-sm-12">
                         <select>
                             <option value="Female">Female</option>
                             <option value="Male">Male</option>
                         </select>
+                        <div class="pull-right">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <span class="glyphicon glyphicon-remove"></span>
+                            <span class="glyphicon glyphicon-align-justify"></span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">License Agreement:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
+                        <label>Roles:</label></div>
+
+                    <div class="col-sm-12">
+                        <label><input type="checkbox" name="role"/>User</label>
+                        <div class="pull-right">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <span class="glyphicon glyphicon-remove"></span>
+                            <span class="glyphicon glyphicon-align-justify"></span>
+                        </div>
+                        </div>
+                    <div class="col-sm-12">
+                        <label><input type="checkbox" name="role"/>Admin</label></div>
+                    <div class="col-sm-12">
+                        <label><input type="checkbox" name="role"/>Student</label></div>
+
+
+                    </div>
+
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                    <label>License Agreement:</label></div>
+
+                    <div class="col-sm-12">
                         <input id="yes" type="radio" name="license"/> <label for="yes">Yes</label>
                         <label><input type="radio" name="license"/> No</label>
+                        <div class="pull-right">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <span class="glyphicon glyphicon-remove"></span>
+                            <span class="glyphicon glyphicon-align-justify"></span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Add New Field:</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-12">
+                    <label>Add New Field:</label></div>
+
+                    <div class="col-sm-12">
                         <select>
                             <option name="text">Single Line Text</option>
                             <option name="date">Date</option>
@@ -115,6 +181,10 @@
                             <option name="radio">Radio Button</option>
                             <option name="paragraph">Paragraph</option>
                         </select>
+                        <div class="pull-right">
+
+                            <span class="glyphicon glyphicon-plus"></span>
+                         </div>
                     </div>
                 </div>
 

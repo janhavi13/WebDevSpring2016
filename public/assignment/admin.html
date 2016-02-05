@@ -61,27 +61,24 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Admin</h1>
             <h3 class="page-header">Users</h3>
+            <div class="table-responsive">
             <table class="table table-stripped table-bordered">
                 <thead>
                 <tr>
                     <th>UserName</th>
                     <th>Password</th>
                     <th>Role</th>
-                    <th>Action</th>
+                    <th style="white-space: nowrap">Action</th>
 
                 </tr>
                 </thead>
                 <tr>
                 <td><input class="form-control" type="text" name="UserName" placeholder="UserName"/></td>
                 <td><input class="form-control" type="password" name="Password" placeholder="Password"/></td>
-                <td><select class="form-control" type="text" name="role">
-                    <option value="USER">User</option>
-                    <option value="ADMIN">Admin</option>
-                    <option value="STUDENT">Student</option>
-                    <option value="FACULTY">Faculty</option>
-                </select>
+                <td><input class="form-control" type="text" name="role" placeholder="role1, role2">
+
                 </td>
-                <td>
+                <td style="white-space: nowrap">
                     <a href="#" class="btn btn-success">
                         <scan class="glyphicon glyphicon-ok"></scan>
                     </a>
@@ -94,7 +91,7 @@
                     <td>Alice</td>
                     <td>Wonderland</td>
                     <td>User</td>
-                    <td>
+                    <td style="white-space: nowrap">
                         <a href="#" class="btn btn-warning">
                             <scan class="glyphicon glyphicon-pencil"></scan>
                         </a>
@@ -107,7 +104,7 @@
                     <td>Bob</td>
                     <td>Marley</td>
                     <td>Admin</td>
-                    <td>
+                    <td style="white-space: nowrap">
                         <a href="#" class="btn btn-warning">
                             <scan class="glyphicon glyphicon-pencil"></scan>
                         </a>
@@ -120,7 +117,7 @@
                     <td>Charlie</td>
                     <td>Steele</td>
                     <td>Faculty</td>
-                    <td>
+                    <td style="white-space: nowrap">
                         <a href="#" class="btn btn-warning">
                             <scan class="glyphicon glyphicon-pencil"></scan>
                         </a>
@@ -133,7 +130,7 @@
                     <td>Danny</td>
                     <td>Boyle</td>
                     <td>Student</td>
-                    <td>
+                    <td style="white-space: nowrap">
                         <a href="#" class="btn btn-warning">
                             <scan class="glyphicon glyphicon-pencil"></scan>
                         </a>
@@ -144,7 +141,7 @@
                 </tr>
                 </tbody>
             </table>
-
+            </div>
 
 
 

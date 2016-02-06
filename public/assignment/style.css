@@ -1,5 +1,4 @@
-.glyphicon-large {
-
-    margin: -0.5em auto 0px;
-
+input.width-controlled {
+    width: 70%; !important;
 }
+

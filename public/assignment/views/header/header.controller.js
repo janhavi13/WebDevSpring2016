@@ -1,16 +1,14 @@
-
-/**
- * Created by janhavi on 2/20/16.
- */
-(function()
-{
+(function() {
     "use strict";
-    angular
-        .module("FormBuilderApp")
+    angular.module("FormBuilderApp")
         .controller("HeaderController",HeaderController);
 
-    function HeaderController()
-    {
+    function HeaderController($scope,UserService) {
+        $scope.logout=logout;
 
+        function logout(){
+            UserService.setCurrentUser(null);
+
+        };
     }
 })();

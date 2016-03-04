@@ -1,48 +1,48 @@
 (function(){
-    "use strict";
-    angular.module("FormBuilderApp")
-        .controller("RegisterController", RegisterController);
+       "use strict";
+        angular.module("FormBuilderApp")
+        .controller("RegisterController",RegisterController);
 
-    function RegisterController($scope,$location,UserService,$rootScope) {
-        $scope.message = null;
+    function RegisterController($scope,UserService,$rootScope,$location) {
+
         $scope.register = register;
+        $scope.message=null;
 
         function register(user) {
-
-            $scope.message = null;
 
             if(user == null) {
                 $scope.message = "Please fill in the required details";
                 return;
             }
 
-            if(!user.username) {
-                $scope.message = "Please provide a username";
+            if (user.username == null) {
+                $scope.message = "Please enter a valid username";
                 return;
             }
 
-            if (!user.password || !user.password2) {
-                $scope.message = "Please provide a password";
+            if (user.password == null || user.password2 == null) {
+                $scope.message = "Please enter a password";
                 return;
             }
 
-            if (user.password !== user.password2) {
-                $scope.message = "Passwords must match";
+            if (user.password != user.password2) {
+                $scope.message = "Passwords do not match";
                 return;
             }
 
-            if(!user.email) {
-                $scope.message = "Please provide an email";
+            if (user.email == null) {
+                $scope.message = "Enter an emailID";
                 return;
             }
 
-            UserService.createUser(user,render);
+            UserService.createUser(user, render);
 
-            function render(newUser) {
-                $rootScope.currentUser = user;
-                // UserService.setCurrentUser(newUser);
+
+            function render(newuser) {
+                UserService.setCurrentUser(newuser);
                 $location.url("/profile");
             }
         }
     }
 })();
+

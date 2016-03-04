@@ -1,41 +1,43 @@
-/**
- * Created by janhavi on 3/1/16.
- */
-(function() {
+(function(){
     "use strict";
     angular.module("FormBuilderApp")
-        .controller("ProfileController", ProfileController);
+        .controller("ProfileController",ProfileController);
 
-    function ProfileController($scope, UserService,$rootScope) {
-        var currentUser = $rootScope.currentUser
-        $scope.update = update;
-        $scope.username = currentUser.username;
+    function ProfileController($scope,UserService,$rootScope){
+
+        $scope.update=update;
+        $scope.message=null;
+
+        var currentUser=$rootScope.currentUser;
+
+        $scope.userName=currentUser.username;
         $scope.password = currentUser.password;
         $scope.firstName = currentUser.firstName;
         $scope.lastName = currentUser.lastName;
         $scope.email = currentUser.email;
 
-        function update(username,password,firstName,lastName,email) {
-            $scope.message = null;
-            var id = currentUser._id;
-            var user ={
+        function update(userName,password,firstName,lastName,email){
+            var id=currentUser._id;
+            var roles=currentUser.roles;
+
+            var user={
                 "_id":id,
-                "username":username,
+                "username":userName,
                 "password":password,
                 "firstName":firstName,
                 "lastName":lastName,
-                "roles":currentUser.roles
+                "roles":roles,
+                "email":email
             }
 
             UserService.updateUser(id,user,render);
 
             function render(user){
-                if (user) {
 
-                    //UserService.setCurrentUser(user);
-                    $rootScope.currentUser = user;
-                    $scope.message = "Profile Updated";
-                }
+             if(user){
+                 UserService.setCurrentUser(user);
+                 $scope.message="Profile updated!";
+             }
             }
         }
     }

@@ -1,6 +1,7 @@
-<body ng-controller="HeaderController">
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
+<html>
+<body>
+ <nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="HeaderController">
+     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -12,22 +13,24 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li ng-hide="currentUser" ng-class="{'active': $location.url() == '/register'}" data-toggle="collapse" data-target=".navbar-collapse.in">
-                    <a href="#/register"> Register</a></li>
+                <li ng-hide="currentUser" ng-class="{'active' : $location.url() == '/register'}" data-toggle="collapse"
+                    data-target=".navbar-collapse.in">
+                    <a href="#/register" class="add-under-line"> Register</a></li>
 
-                <li ng-hide="currentUser" ng-class="{'active': $location.url() == '/login'}" data-toggle="collapse" data-target=".navbar-collapse.in">
-                    <a href="#/login"> Login</a></li>
+                <li ng-hide="currentUser" ng-class="{'active' : $location.url() == '/login'}"
+                    data-toggle="collapse" data-target=".navbar-collapse.in">
+                    <a href="#/login" class="add-under-line">Login</a></li>
 
-                <li ng-show="currentUser" ng-class="{'active': $location.url() == '/profile'}" data-toggle="collapse" data-target=".navbar-collapse.in">
-                    <a href="#/profile">{{currentUser.username}}</a></li>
+                <li ng-show="currentUser" ng-class="{'active' : $location.url() == '/profile'}"
+                    data-toggle="collapse" data-target=".navbar-collapse.in">
+                    <a href="#/profile" class="add-under-line"> {{currentUser.username}} </a></li>
 
-                <li ng-show="currentUser" data-toggle="collapse" data-target=".navbar-collapse.in">
-                    <a href="#/home" ng-click="logout()"> Logout</a></li>
+                <li ng-show="currentUser"><a href="#/home" class="add-under-line" ng-click="logout()"
+                                             data-toggle="collapse" data-target=".navbar-collapse.in">LogOut</a></li>
             </ul>
-
         </div>
     </div>
-</nav>
+  </nav>
 </body>
-
+</html>
 

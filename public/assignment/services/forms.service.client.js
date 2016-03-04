@@ -1,30 +1,31 @@
-/**
- * Created by janhavi on 3/1/16.
- */
-(function() {
-    "use strict";
+(function(){
     angular.module("FormBuilderApp")
         .factory("FormService",FormService);
 
-    function FormService() {
-        var forms = [
+    function FormService(){
+
+        var forms=[
             {"_id": "000", "title": "Contacts", "userId": 123},
             {"_id": "010", "title": "ToDo",     "userId": 123},
-            {"_id": "020", "title": "CDs",      "userId": 234}]
+            {"_id": "020", "title": "CDs",      "userId": 234},
+        ];
 
-        var model={ createFormForUser:createFormForUser,
+        var model = {
+            createFormForUser : createFormForUser,
             findAllFormsForUser:findAllFormsForUser,
             deleteFormById:deleteFormById,
             updateFormById:updateFormById
+
         }
         return model;
 
-        function createFormForUser(userId,form,callback){
-            var form = {
-                _id:(new Date).getTime(),
-                title:form.title,
+        function createFormForUser(userId, form, callback){
+            var newForm={
+                _id : (new Date).getTime(),
+                title:form,
                 userId:userId
             };
+
             forms.push(form);
             callback(form);
         }

@@ -1,8 +1,6 @@
-/**
- * Created by janhavi on 2/19/16.
- */
-(function(){
+(function() {
     "use strict";
     angular
-        .module("FormBuilderApp",["ngRoute"]);
+        .module("FormBuilderApp", ["ngRoute"]);
 })();
+

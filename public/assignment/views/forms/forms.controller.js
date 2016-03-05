@@ -1,7 +1,7 @@
 (function(){
     "use strict";
     angular.module("FormBuilderApp")
-     .controller("FormController",FormController);
+        .controller("FormController",FormController);
 
     function FormController($scope,FormService,$rootScope){
 
@@ -9,7 +9,7 @@
         var currentUserForms = [];
         var currentUser;
 
-        if($rootScope.currentUser === null){
+        if($rootScope.currentUser == null){
             $location.url("/home");
         }
         else{
@@ -24,15 +24,15 @@
 
 
         function addForm(formName){
-           if(formName!=null){
-               var newForm={
-                   "_id":null,
-                   "title":formName,
-                   "userId":null
-               };
-               FormService.createFormForUser(currentUser._id,newForm,renderAddForm);
+            if(formName!=null){
+                var newForm={
+                    "_id":null,
+                    "title":formName,
+                    "userId":null
+                };
+                FormService.createFormForUser(currentUser._id,newForm,renderAddForm);
 
-           }
+            }
         }
 
         function renderAddForm(newForm){
@@ -73,5 +73,3 @@
     }
 
 })();
-
-

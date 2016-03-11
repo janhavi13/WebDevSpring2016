@@ -2,14 +2,14 @@
 (function(){
     "use strict";
     angular.module("MusicApp")
-        .controller("CreateEvent",CreateEvent);
+        .controller("CreatePlaylist",CreatePlaylist);
 
-    function CreateEvent($scope){
+    function CreatePlaylist($scope){
 
         $scope.message=null;
-        $scope.createEvent=createEvent;
+        $scope.createPlaylist=createPlaylist;
 
-        function createEvent(event){
+        function createPlaylist(playlist){
 
 
         }

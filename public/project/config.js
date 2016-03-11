@@ -35,9 +35,14 @@
                 controller:"SearchController"
             })
 
-            .when("/createEvent", {
-                templateUrl: "views/createEvent/createPlaylist.view.html",
-                controller:"CreateEvent"
+            .when("/createPlaylist", {
+                templateUrl: "views/createPlaylist/createPlaylist.view.html",
+                controller:"CreatePlaylist"
+            })
+
+            .when("/myPlaylists",{
+                templateUrl:"views/users/myPlaylists.view.html",
+                controller:"MyPlaylists"
             })
 
             .when("/details/:trackID",{

@@ -1,6 +1,11 @@
 <html>
 <body ng-controller="DetailsController">
 <h1>Track Information</h1>
+
+<div>
+    <image height="200px" width="200px" ng-src="{{details.album.images[1].url}}"></image>
+</div>
+
 <div>
 Name: {{details.name}}
 </div>

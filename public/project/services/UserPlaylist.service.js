@@ -6,9 +6,9 @@
     function UserPlaylist(){
 
         var playlists=[
-            {"_id": "000", "pName": "Jazz","cDate": "2013-05-23", "userId": 123},
-            {"_id": "010", "pName": "Romantic", "cDate": "11/10/2016", "userId": 123},
-            {"_id": "020", "pName": "SoulMusic","cDate": "11/11/2016","userId": 234},
+            {"_id": "000", "pName": "Jazz", "userId": 123},
+            {"_id": "010", "pName": "Romantic",  "userId": 123},
+            {"_id": "020", "pName": "SoulMusic","userId": 234},
         ];
 
         var model = {
@@ -21,7 +21,7 @@
 
 
         function findPlaylistForCurrentUser(currentUserId,callback){
-            var userPlalists=[];
+            var userPlaylists=[];
             for(p in playlists){
                 if(playlists[p].userId==currentUserId){
                     userPlaylists.push(playlists[p]);
@@ -31,7 +31,7 @@
         }
 
         function deletePlaylistById(playlistId,callback){
-            for(e in playlists){
+            for(p in playlists){
                 if(playlists[p]._id==playlistId){
                     playlists.splice(p, 1);
                     break;
@@ -45,12 +45,27 @@
             for(p in playlists){
                 if(playlists[p]._id==playlistId){
                     playlists[p].pName=playlist.pName;
-                    playlists[p].sDate=playlist.cDate;
+
 
                 }
             }
             callback(forms[p]);
 
+        }
+
+
+
+        function createNewPlaylist(newPlaylist,callback){
+
+            var Playlist= { "_id": "000",
+                "pName": newPlaylist.Name,
+                "desc":newPlaylist.desc
+            }
+
+            console.log(Playlist);
+            console.log(playlists);
+            playlists.push(Playlist);
+            callback();
         }
 
     }

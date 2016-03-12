@@ -1,4 +1,3 @@
-
 (function(){
     "use strict";
     angular
@@ -19,8 +18,8 @@
             $location.url("/home");
         }
         else{
-        var currentUser=$rootScope.currentUser;
-         UserEvent.findEventsFoCurrentUser(currentUser._id,renderPlaylists);
+            var currentUser=$rootScope.currentUser;
+            UserPlaylist.findPlaylistForCurrentUser(currentUser._id,renderPlaylists);
         }
 
         function renderPlaylists(userPlaylists){
@@ -33,8 +32,8 @@
             UserPlaylist.deletePlaylistById(currentUserPlaylists[index]._id,renderPlaylistsAfterAction);
         }
 
-        function renderPlaylistsAfterAction(UserPlaylists){
-            UserPlaylist.findPlaylistsFoCurrentUser(currentUser._id,renderPlaylists);
+        function renderPlaylistsAfterAction(userPlaylists){
+            UserPlaylist.findPlaylistForCurrentUser(currentUser._id,renderPlaylists);
         }
 
         function selectPlaylist(index){
@@ -42,19 +41,17 @@
             $scope.playlistSelected=
             {"_id": currentUserPlaylists[index]._id,
                 "pName": currentUserPlaylists[index].pName,
-                "cDate": currentUserPlaylists[index].cDate,
                 "userId": currentUserPlaylists[index].userId
             };
         }
 
         function updatePlaylist(pSelected){
-         //   if(pSelected.pname == null || pSelected.cDate == null ){
+
             if(pSelected.pName == null){
                 $scope.alertMessage="Enter details of all the required fields";
             }
             else{
                 currentUserPlaylists[playlistIndexSelected].pName=pSelected.pName;
-                currentUserPlaylists[playlistIndexSelected].cDate=pSelected.cDate;
                 $scope.playlistSelected = null;
             }
         }

@@ -35,10 +35,6 @@
                 controller:"SearchController"
             })
 
-            .when("/createPlaylist", {
-                templateUrl: "views/createPlaylist/createPlaylist.view.html",
-                controller:"CreatePlaylist"
-            })
 
             .when("/myPlaylists",{
                 templateUrl:"views/users/myPlaylists.view.html",

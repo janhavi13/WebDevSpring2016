@@ -1,17 +1,15 @@
 <html>
 <body ng-controller="MyPlaylists">
-<h1>{{currentUser.firstName}} your events are</h1>
+<h1>{{currentUser.firstName}}'s Playlists</h1>
 <div ng-show="alertMessage" class="alert alert-danger" role="alert">{{alertMessage}}</div>
 <table class="table table-responsive table-stripped">
     <tr>
         <th>PlaylistName</th>
-        <th>CreateDate</th>
         <th>Action</th>
     </tr>
 
     <tr>
         <td><input type="text" placeholder="Playlist Name" class="form-control" ng-model="playlistSelected.pName"></td>
-        <td><input type="date" placeholder="Create Date" class="form-control" ng-model="playlistSelected.cDate"></td>
 
 
         <td class="text-nowrap">
@@ -22,7 +20,6 @@
 
     <tr ng-repeat="p in playlists">
         <td>{{p.pName}}</td>
-        <td>{{p.cDate}}</td>
         <td>
             <a ng-click="deletePlaylist($index)"><span class="glyphicon glyphicon-remove"></span></a>
             <a ng-click="selectPlaylist($index)"><span class="glyphicon glyphicon-pencil"></span></a></td>

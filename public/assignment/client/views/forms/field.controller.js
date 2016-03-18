@@ -1,9 +1,9 @@
 (function(){
     "use strict";
     angular.module("FormBuilderApp")
-     .controller("FormController",FormController);
+        .controller("FieldController",FieldController);
 
-    function FormController(FormService,$rootScope,$location){
+    function FieldController(FieldService,$rootScope,$location){
 
         var vm=this;
         vm.currentUser=$rootScope.currentUser;
@@ -53,7 +53,7 @@
                     "_id": formToBeUpdatedId};
                 FormService.updateForm(formToBeUpdatedId,changedForm)
                     .then(finalList)
-             }
+            }
         }
 
         function finalList(response){

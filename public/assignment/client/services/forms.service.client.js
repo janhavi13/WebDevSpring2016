@@ -1,6 +1,6 @@
 (function(){
     angular.module("FormBuilderApp")
-        .factory("FormService",FormService);
+    .factory("FormService",FormService);
 
     function FormService(){
 
@@ -20,11 +20,11 @@
         return model;
 
         function createFormForUser(userId, form, callback){
-            var form={
-                _id : (new Date).getTime(),
-                title:form.title,
-                userId:userId
-            };
+          var form={
+           _id : (new Date).getTime(),
+              title:form.title,
+              userId:userId
+          };
 
             forms.push(form);
             callback(form);
@@ -35,7 +35,7 @@
             for(var u in forms) {
                 if (forms[u].userId == userId) {
                     userForms.push(forms[u]);
-                    // console.log(userForms);
+                   // console.log(userForms);
                 }
             }
             callback(userForms);

@@ -26,7 +26,14 @@
         }
 
 
-
+       /* function deleteUserById(userId, callback){
+            for(var u in model.users) {
+                if (model.users[u]._id == userId) {
+                    model.users.splice(u, 1);
+                }
+            }
+            callback(model.users);
+        }*/
 
         function findAllUsers(callback) {
             callback(users);

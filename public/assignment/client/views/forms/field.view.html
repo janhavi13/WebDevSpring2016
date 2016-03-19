@@ -1,6 +1,6 @@
-<html>
-
-<body ng-controller="FieldController">
+<!DOCTYPE html>
+<html lang="en">
+<body>
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="main">
@@ -12,41 +12,62 @@
             </ul>
 
             <div class="container-fluid">
-                <div ng-repeat="field in model.fields" class="row topForm">
-                    <div class="col-xs-7">
+                <div ng-repeat="field in model.existingFields" class="row topForm">
+                    <div class="col-xs-5">
                         <form>
                             <div class="form-group">
                                 <label>{{field.label}}</label>
 
-                                <div ng-switch on="field.fieldType">
-                                    <input ng-switch-when="Text" type="text" placeholder="field.placeholder">
-                                    <textarea ng-switch-when="Textarea" class="form-control" rows="3"></textarea>
-                                    <input ng-switch-when="Date" type="date">
-                                    <select ng-switch-when="Options">
-                                        <option ng-repeat="option in field.options">{{option}}</option>
+                                <div ng-switch on="field.type">
+                                    <input ng-switch-when="TEXT" type="text" placeholder={{field.placeholder}}>
+                                    <textarea ng-switch-when="TEXTAREA" class="form-control" rows="3"></textarea>
+                                    <input ng-switch-when="DATE" type="date">
+                                    <input ng-switch-when="EMAIL" type="email" placeholder={{field.placeholder}}>
+                                    <select ng-switch-when="OPTIONS">
+                                        <option ng-repeat="option in field.options">{{option.label}}</option>
                                     </select>
-                                    <div class="checkbox" ng-switch-when="Checkboxes">
+                                    <div class="checkbox" ng-switch-when="CHECKBOXES">
                                         <label ng-repeat="option in field.options">
                                             <input type="checkbox" value="">
                                             {{option}}
                                         </label>
                                     </div>
-                                    <div class="radio" ng-switch-when="Radios">
+                                    <div class="radio" ng-switch-when="RADIOBUTTONS">
                                         <label ng-repeat="option in field.options">
                                             <input type="radio">
-                                            {{option}}
+                                            {{option.label}}
                                         </label>
                                     </div>
                                 </div>
-
                             </div>
                         </form>
                     </div>
                     <div class="col-xs-5">
-                        <span href="#" class="glyphicon glyphicon-pencil"></span>
+                        <button ng-click="model.editField(field)" href="#" class="glyphicon glyphicon-pencil"></button>
                         <span href="#" class="glyphicon glyphicon-plus"></span>
-                        <button ng-click="removeField(field)" href="#" class="glyphicon glyphicon-remove"></button>
+                        <button href="#" class="glyphicon glyphicon-remove" data-target="#myModal"></button>
                         <span href="#" class="glyphicon glyphicon-menu-hamburger"></span>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Modal Header</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Some text in the modal.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -62,26 +83,25 @@
                             <div class="form-group">
                                 <label for="newForm">Add New Field:</label>
                                 <select ng-model="model.fieldType" class="form-control" id="newForm">
-                                    <option>Text</option>
-                                    <option>Textarea</option>
-                                    <option>Date</option>
-                                    <option>Options</option>
-                                    <option>Checkboxes</option>
-                                    <option>Radios</option>
+                                    <option>Single Line Text Field</option>
+                                    <option>Multi Line Text Field</option>
+                                    <option>Date Field</option>
+                                    <option>Dropdown Field</option>
+                                    <option>Checkboxes Field</option>
+                                    <option>Radio Buttons Field</option>
                                 </select>
                             </div>
                         </form>
                     </div>
                     <div class="col-xs-5">
-                        <button ng-click="addField(model.fieldType)" href="#" class="glyphicon glyphicon-plus"></button>
+                        <button ng-click="model.addField(model.fieldType)" href="#" class="glyphicon glyphicon-plus"></button>
                     </div>
                 </div>
 
-            </div>
+            </div> <!-- End of container -->
 
-        </div>
-    </div>
-</div>
+        </div> <!-- End of main -->
+    </div> <!-- End of row-fluid-->
+</div> <!-- End of container-fluid -->
 </body>
-
 </html>

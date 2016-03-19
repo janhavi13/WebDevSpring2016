@@ -25,16 +25,18 @@ module.exports= function(){
         var userForms =[]
         for (var u in formMock) {
             if (formMock[u].userId == userId) {
-                userForms.push(formMock[u]);}
+                userForms.push(formMock[u]);
+            }
         }
         return userForms;
     }
 
     function addForm(id,form){
-        //set the id of the form using guid library
-        form._id= (new Date).getTime();
-        form.userId=id;
 
+        //set the id of the form using guid library
+
+        form._id=(new Date).getTime();
+        form.userId=id;
         formMock.push(form);
         var allForms = findAllFormsForUser(id);
         return allForms;
@@ -54,7 +56,6 @@ module.exports= function(){
         for (var u in formMock) {
             if (formMock[u]._id == formId) {
                 formMock[u]=newForm;
-                console.log("the updated",formMock[u]);
                 return formMock[u];
             }
         }

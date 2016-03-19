@@ -1,91 +1,87 @@
-(function(){
-    "use strict";
-    angular.module("FormBuilderApp")
-        .controller("FieldController",FieldController);
+"use strict";
+(function() {
+    angular
+        .module("FormBuilderApp")
+        .controller("FieldController", FieldController);
 
-    function FieldController(FieldService,$rootScope,$location){
+    function FieldController(FieldService, $routeParams) {
+        var vm = this;
+        var userId = $routeParams.userId;
+        var formId = $routeParams.formId;
+        vm.fields = [];
 
-        var vm=this;
-        vm.currentUser=$rootScope.currentUser;
-        vm.message=null;
+        function init() {
+            FieldService
+                .getFieldsForForm(formId)
+                .then(function(response) {
+                    if (response.data) {
+                        vm.fields = response.data;
+                    }
+                });
 
-        vm.addForm=addForm;
-        vm.updateForm=updateForm;
-        vm.deleteForm=deleteForm;
-        vm.selectForm=selectForm;
-
-        function init(){
-
-            if(vm.currentUser == null){
-                $location.url("/home");
-            }
-            else{
-                FormService.findAllFormsForUser(vm.currentUser._id)
-                    .then(function(response){
-                        if(response.data) {
-                            vm.forms=response.data;
-                        }
-                    });
-            }
         }
         init();
 
-        function addForm(formName){
-            var userId=vm.currentUser._id;
-            var newForm={"title":formName};
-            if(formName!=null){
-                FormService.addForm(newForm,userId)
-                    .then(function(response){
-                        vm.forms=response.data;
-                        vm.formIndexSelected=null;
-                        vm.formName=null;
-                    })
-            }
-            else{
-                vm.message="Enter a form name";
-            }
-        }
+        vm.addField = addField;
+        vm.deleteField = deleteField;
 
-        function updateForm(form){
-            if (form!= null) {
-                var formToBeUpdatedId= vm.forms[vm.formIndexSelected]._id;
-                var changedForm ={"title" : form, "userId" : vm.currentUser._id ,
-                    "_id": formToBeUpdatedId};
-                FormService.updateForm(formToBeUpdatedId,changedForm)
-                    .then(finalList)
+        function addField(fieldType) {
+            var field = null;
+            //Set default field information
+            if (fieldType === "Text") {
+                field = {"_id": null, "label": "New Text Field", "type": "Text", "placeholder": "New Field"};
             }
-        }
+            else if (fieldType === "Textarea") {
+                field = {"_id": null, "label": "New Text Field", "type": "Textarea", "placeholder": "New Field"};
+            }
+            else if (fieldType === "Date") {
+                field = {"_id": null, "label": "New Date Field", "type": "Date"};
+            }
+            else if (fieldType === "Options") {
+                field = {"_id": null, "label": "New Dropdown", "type": "Options",
+                    "options": [
+                        {"label": "Option 1", "value": "OPTION_1"},
+                        {"label": "Option 2", "value": "OPTION_2"},
+                        {"label": "Option 3", "value": "OPTION_3"}
+                    ]};
+            }
+            else if (fieldType === "Checkboxes") {
+                field = {"_id": null, "label": "New Checkboxes", "type": "CHECKBOXES", "options": [
+                    {"label": "Option A", "value": "OPTION_A"},
+                    {"label": "Option B", "value": "OPTION_B"},
+                    {"label": "Option C", "value": "OPTION_C"}
+                ]};
+            }
+            else {
+                field = {"_id": null, "label": "New Radio Buttons", "type": "RADIOS", "options": [
+                    {"label": "Option X", "value": "OPTION_X"},
+                    {"label": "Option Y", "value": "OPTION_Y"},
+                    {"label": "Option Z", "value": "OPTION_Z"}
+                ]};
+            }
 
-        function finalList(response){
-            FormService.findAllFormsForUser(vm.currentUser._id)
+            FieldService
+                .createFieldForForm(formId, field)
                 .then(function(response){
-                    if(response.data) {
-                        vm.forms=response.data;
-                        vm.formIndexSelected=null;
-                        vm.formName=null;
+                    if (response.data) {
+                        vm.fields = response.data;
                     }
                 });
         }
 
-        function selectForm(index){
-            vm.formIndexSelected = index;
-            vm.formName = vm.forms[index].title;
+        function deleteField(field) {
+            FieldService
+                .deleteFieldFromForm(formId, field._id)
+                .then(function (response) {
+                    if (response.data) {
+                        vm.fields = response.data;
+                    }
+                });
         }
-
-        function deleteForm(index){
-            var userId=vm.currentUser._id;
-            vm.formIndexSelected = index;
-            var formToDelete=vm.forms[index]._id;
-            FormService.deleteForm(formToDelete,userId)
-                .then(function(response){
-                    vm.forms=response.data;
-                    vm.formIndexSelected=null;
-                    vm.formName=null;
-                })
-        }
-
     }
-
 })();
+
+
+
 
 

@@ -1,11 +1,12 @@
 var formMock = require("./form.mock.json");
 
-module.exports= function(){
+module.exports= function(uuid){
 
     var api = {
         getFieldsForForm:getFieldsForForm,
         createFieldForForm:createFieldForForm,
-        deleteFieldFromForm:deleteFieldFromForm
+        deleteFieldFromForm:deleteFieldFromForm,
+        updateField:updateField
 
     }
     return api;
@@ -22,6 +23,7 @@ module.exports= function(){
     function createFieldForForm(formId,field){
         for (var u in formMock) {
             if (formMock[u]._id == formId) {
+                field._id=(new Date).getTime();
                 formMock[u].fields.push(field);
                 return formMock[u].fields;
             }
@@ -42,6 +44,22 @@ module.exports= function(){
          }
         }
         return null;
+    }
+
+    function updateField(formId,fieldId,updatedField){
+        for (var u in formMock) {
+            if (formMock[u]._id == formId) {
+                for(var v in formMock[u].fields){
+                    if(fieldId== formMock[u].fields[v]._id){
+                        formMock[u].fields[v]=updatedField;
+                        var allFields=getFieldsForForm(formId);
+                        return allFields;
+                    }
+                }
+            }
+        }
+        return null;
+
     }
 
 }

@@ -1,6 +1,6 @@
 var formMock = require("./form.mock.json");
 
-module.exports= function(){
+module.exports= function(uuid){
 
     var api = {
         findFormByTitle:findFormByTitle,
@@ -32,11 +32,11 @@ module.exports= function(){
     }
 
     function addForm(id,form){
-
-        //set the id of the form using guid library
-
         form._id=(new Date).getTime();
+        //form._id=uuid.v1();
         form.userId=id;
+        form.userId=id;
+        form.fields=[];
         formMock.push(form);
         var allForms = findAllFormsForUser(id);
         return allForms;

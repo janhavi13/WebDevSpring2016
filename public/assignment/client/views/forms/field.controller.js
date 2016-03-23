@@ -3,7 +3,7 @@
     angular.module("FormBuilderApp")
         .controller("FieldController",FieldController);
 
-    function FieldController($rootScope,$routeParams,FieldService) {
+    function FieldController($rootScope,$routeParams,FieldService,$scope) {
 
         var vm = this;
         vm.currentUser = $rootScope.currentUser;
@@ -11,6 +11,8 @@
         vm.addField=addField;
         vm.removeField=removeField;
         vm.editField=editField;
+        vm.okayField=okayField;
+        vm.cancelField=cancelField;
 
         var formId=$routeParams.formId;
 
@@ -23,7 +25,7 @@
         init();
 
         function addField(fieldType) {
-            console.log("in the add function ");
+
             var field = null;
             //Set default field information
             if (fieldType == "Single Line Text Field") {
@@ -50,12 +52,16 @@
                     {"label": "Option C", "value": "OPTION_C"}
                 ]};
             }
-            else {
-                field = {"_id": null, "label": "New Radio Buttons", "type": "RADIO", "options": [
+            else if (fieldType == "Radio Buttons Field") {
+                field = {"_id": null, "label": "Radio Buttons Field", "type": "RADIOS", "options": [
                     {"label": "Option X", "value": "OPTION_X"},
                     {"label": "Option Y", "value": "OPTION_Y"},
                     {"label": "Option Z", "value": "OPTION_Z"}
                 ]};
+            }
+
+            else {
+                return null;
             }
 
             FieldService.createFieldForForm(formId, field)
@@ -66,16 +72,77 @@
                 });
         }
 
+        function removeField(field){ 
+            FieldService.deleteFieldFromForm(formId, field._id) 
+                .then(function (response) { 
+                    if (response.data) { 
+                        vm.existingFields = response.data; 
+                    } 
+                });
+         }
 
+        function editField(field) {
 
-        function editField(field){
+            vm.selectedField = field;
+            vm.label = field.label;
+            var optionsInString= "";
+            console.log("options", field.options);
+            var op = field.options;
 
+            if(op){
+             var optionList = [];
+             for(var u in op){
+             optionList.push(op[u].label+ ":" +op[u].value+ "\n");
+                 optionsInString=optionsInString+(op[u].label+ ":" +op[u].value+"\n");
+             }
+                optionsInString= optionsInString.substring(0,optionsInString.length-1);
+             vm.selectedField.options = optionList;vm.options=optionsInString;
+
+             }
+
+            if(field.placeholder){
+                vm.placeholder = field.placeholder;
+            }
         }
 
+        function okayField(){
 
+            if(vm.selectedField.options){
+                console.log("options from view",vm.options);
+                var opt = vm.options.split("\n");
+                var optionList =[];
 
+                for(var u in opt){
+                    var val = opt[u].split(":");
+                    optionList.push({"label":val[0],"value":val[1]});
+                }
+                vm.selectedField.options = optionList;
+            }
 
+            if(vm.selectedField.placeholder){
+                vm.selectedField.placeholder  = vm.placeholder
+            }
 
+            vm.selectedField.label = vm.label;
+
+            FieldService.updateField(formId,vm.selectedField._id,vm.selectedField)
+                .then(init());
+            vm.label = null;
+            vm.placeholder = null;
+            vm.options = null;
+        }
+
+        function cancelField(){
+
+            FieldService.getFieldsForForm(formId)
+                .then(function(response) {
+                    vm.existingFields = response.data;
+                })
+            console.log("67",vm.existingFields);
+            vm.label = null;
+            vm.placeholder = null;
+            vm.options = null;
+        }
     }
 })();
 

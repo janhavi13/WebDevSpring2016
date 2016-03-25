@@ -13,6 +13,21 @@
             $scope.details=response;
         }
 
+        function likeSong(name){
+
+            if($rootScope.user){
+                //console.log(imdbID + poster + title);
+                UserService.addSongLike(name,$rootScope.user._id);
+
+            }else {
+
+                $location.url("/login");
+            }
+        }
+
+
 
     }
 })();
+
+

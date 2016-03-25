@@ -4,6 +4,7 @@
 
 <div>
     <image height="200px" width="200px" ng-src="{{details.album.images[1].url}}"></image>
+
 </div>
 
 <div>
@@ -14,8 +15,35 @@ Name: {{details.name}}
     Album: {{details.album.name}}
 </div>
 
-<div>
+<!--<div>
 <a href="{{details.preview_url}}">Play</a>
+</div>-->
+
+<div ng-show="currentUser">
+    Comment:
+
+     <textarea placeholder="Comment" class="form-control"></textarea>
+
+
 </div>
+
+
+    <div class="media">
+        <div class="media-left">
+
+
+
+        <audio ng-src="{{details.preview_url | trusted}}" audioplayer controls>
+    </audio>
+
+
+            <button ng-show="currentUser" class="btn btn-primary" ng-click="likeSong(details.name)">
+
+                <span class="glyphicon glyphicon-star"></span>
+
+            </button>
+
+        </div>
+
 </body>
 </html>

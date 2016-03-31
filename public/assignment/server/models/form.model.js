@@ -7,10 +7,21 @@ module.exports= function(uuid){
         findAllFormsForUser:findAllFormsForUser,
         addForm:addForm,
         deleteForm:deleteForm,
-        updateForm:updateForm
+        updateForm:updateForm,
+        findFormById:findFormById
     }
     return api;
 
+
+    function findFormById(formId){
+        console.log("inside form function");
+        for(var u in formMock){
+            if(formMock[u]._id === formId){
+                return formMock[u];
+            }
+        }
+        return null;
+    }
 
     function findFormByTitle(title) {
         for (var u in formMock) {
@@ -32,8 +43,8 @@ module.exports= function(uuid){
     }
 
     function addForm(id,form){
-        form._id=(new Date).getTime();
-        //form._id=uuid.v1();
+       //form._id=(new Date).getTime();
+        form._id=uuid.v1();
         form.userId=id;
         form.userId=id;
         form.fields=[];
@@ -61,6 +72,13 @@ module.exports= function(uuid){
         }
     }
 
+    function findFormById(formId){
+        for (var u in formMock) {
+            if (formMock[u]._id == formId) {
+                return formMock[u];
+            }
+        }
+    }
 }
 
 

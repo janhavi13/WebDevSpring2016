@@ -12,13 +12,14 @@
             getFieldsForForm:getFieldsForForm,
             getFieldForForm:getFieldForForm,
             deleteFieldFromForm:deleteFieldFromForm,
-            updateField:updateField
+            updateField:updateField,
+            cloneField:cloneField
         }
         return model;
 
 
         function createFieldForForm(formId,field){
-
+            console.log("am in field service");
             return $http.post("/api/assignment/form/"+formId+"/field",field);
         }
 
@@ -31,12 +32,16 @@
         }
 
         function deleteFieldFromForm(formId,fieldId){
-
+            console.log("in clien service",formId,fieldId);
             return $http.delete("/api/assignment/form/"+formId+"/field/"+fieldId);
         }
 
         function updateField(formId,fieldId,field){
             return $http.put("/api/assignment/form/"+formId+"/field/"+fieldId, field);
+        }
+
+        function cloneField(formId,field){
+            return $http.post("/api/assignment/form/" +formId+ "/field", field);
         }
     }
 })();

@@ -1,16 +1,26 @@
 var mongoose=require("mongoose");
 
-// how to create an instance of Field???
+
 var Fields=require("/field.schema.server.js");
 
 module.exports =function(){
     var formSchema  =mongoose.Schema(
         {userId:String,
             title:String,
-            fields:[Field],
+            fields:[{label:String,
+                type:String,
+                placeholder:String,
+                options:[
+                    {label:String,
+                        value:String}
+                ]
+            }],
             created:[Date],
         updated:[Date]},{collection :'form'});
     return formSchema;
 
 
 };
+
+
+

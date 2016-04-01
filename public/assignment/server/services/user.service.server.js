@@ -13,7 +13,9 @@ module.exports = function(app,userModel) {
         var username=req.params.username;
         var password=req.params.password;
         var user=userModel.findUserByCredentials(username,password);
-        res.json(user);
+       // res.json(user);
+
+
     }
 
     function register(req,res){
@@ -51,3 +53,5 @@ module.exports = function(app,userModel) {
         return user;
     }
 }
+
+

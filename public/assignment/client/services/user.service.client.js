@@ -10,7 +10,6 @@
 
             setCurrentUser : setCurrentUser,
             updateUser : updateUser,
-          //  deleteUserById : deleteUserById,
             findAllUsers : findAllUsers,
             findUserByCredentials:findUserByCredentials,
             register: register,
@@ -21,19 +20,8 @@
         return model;
 
         function setCurrentUser(user){
-            console.log("setting the current user",user);
             $rootScope.currentUser=user;
         }
-
-
-       /* function deleteUserById(userId, callback){
-            for(var u in model.users) {
-                if (model.users[u]._id == userId) {
-                    model.users.splice(u, 1);
-                }
-            }
-            callback(model.users);
-        }*/
 
         function findAllUsers(callback) {
             callback(users);
@@ -48,8 +36,8 @@
             return $http.post("/api/assignment/register", user);
         }
 
-        function updateUser(user){
-            return $http.put("/api/assignment/updateUser/"+user._id,user);
+        function updateUser(user,currentUserId){
+            return $http.put("/api/assignment/updateUser/"+currentUserId,user);
         }
 
         function deleteUser(user){
@@ -67,8 +55,6 @@
         function getUserById(id){
             return $http.get("/api/assignment/getUserById/"+id);
         }
-
-
     }
 })();
 

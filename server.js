@@ -10,10 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 
 var mongoose=require('mongoose');
-//var connectionString = 'mongodb://127.0.0.1:27017/webdev2016';
-
-
-var connectionString = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
+var connectionString = 'mongodb://127.0.0.1:27017/webdev2016';
 if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
     connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
         process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
@@ -23,7 +20,7 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 }
 var db = mongoose.connect(connectionString);
 require("./public/assignment/server/app.js")(app,uuid,db);
-///require("./public/projects/server/app.js")(app,uuid);
+require("./public/projects/server/app.js")(app,uuid);
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
@@ -32,5 +29,3 @@ app.get('/hello', function(req, res){
     res.send('hello world');
 });
 app.listen(port, ipaddress);
-
-

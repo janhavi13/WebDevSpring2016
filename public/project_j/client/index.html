@@ -45,7 +45,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <div id="grad1">
 
-<a href="#"><h1>BOOMBOX</h1></a>
+<a href="#"><h1>My Music</h1></a>
 
 <div class="page">
 
@@ -55,66 +55,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         <div class="banner">
 
-            <!-- Navbar-Starts-Here -->
 
-            <nav class="navbar navbar-default">
-
-                <div class="container">
-
-                    <div class="navbar-header">
-
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>                        
-                        </button>
-
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="myNavbar">
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a rel="shadow-radial" class="button shadow-radial scroll" href="#hover">Charts</a></li>
-                            <li><a rel="shadow-radial" class="button shadow-radial scroll" href="#down">Stream</a></li>
-                            <li><a rel="shadow-radial" class="button shadow-radial scroll" href="#download">Download</a></li>
-                            <li><a rel="shadow-radial" class="button shadow-radial scroll" href="#artists">Artists</a></li>
-                            <li><a rel="shadow-radial" class="button shadow-radial scroll" href="#follow">Follow</a></li>
-                            <li>
-                                <div class="login-pop">
-                                    <div id="loginpop"><a href="#" id="loginButton" rel="shadow-radial" class="button shadow-radial"><span>Login</span></a>
-                                        <div id="loginBox">                
-                                            <form id="loginForm">
-                                                <fieldset id="body">
-                                                    <fieldset>
-                                                        <label for="email">Email Address</label>
-                                                        <input type="text" name="email" id="email">
-                                                    </fieldset>
-                                                    <fieldset>
-                                                        <label for="password">Password</label>
-                                                        <input type="password" name="password" id="password">
-                                                    </fieldset>
-                                                        <input type="submit" id="login" value="Sign in">
-                                                        <label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
-                                                        <a class="signup" href="#">Signup</a>
-                                                </fieldset>
-                                                <span><a href="#">Forgot your password?</a></span>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <script src="js/menu_jquery.js"></script>
-                            </li>
-                        </ul>
-
-                    </div>
-
-                    <div class="clearfix"></div>
-
-                </div>
-
-            </nav>
-
-            <!-- //Navbar-Ends-Here -->
+            <div ng-include="'views/header/header.view.html'">
 
             <!-- Chart-Starts-Here -->
 
@@ -250,14 +192,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         <div class="footer">
 
-            <ul class="social" id="follow">
+           <!-- <ul class="social" id="follow">
                 <li><a href="#" class="facebook" title="Go to Our Facebook Page"></a></li>
                 <li><a href="#" class="twitter" title="Go to Our Twitter Account"></a></li>
                 <li><a href="#" class="googleplus" title="Go to Our Google Plus Account"></a></li>
                 <li><a href="#" class="instagram" title="Go to Our Instagram Account"></a></li>
                 <li><a href="#" class="youtube" title="Go to Our Youtube Channel"></a></li>
                 <li><a href="#" class="itunes" title="Go to Our iTunes App"></a></li>
-            </ul>
+            </ul> -->
 
             <div class="copyright">
                 <p>&copy; 2016 Boombox. All Rights Reserved | Template by <a href="http://w3layouts.com/"> W3layouts </a></p>

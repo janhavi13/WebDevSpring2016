@@ -9,31 +9,31 @@
         var currentUser= $rootScope.currentUser;
         var vm=this;
         vm.message= null;
-        vm.update=update;
-
         vm.firstName=currentUser.firstName;
         vm.lastName=currentUser.lastName;
         vm.username=currentUser.username;
         vm.password=currentUser.password;
-        vm.email=currentUser.email;
+        vm.email=currentUser.emails.join(",");
+        vm.phones=currentUser.phones.join(",");
+        vm.update=update;
 
         function init(){
 
         }
         init;
 
-        function update(username,password,firstName,lastName,email){
+        function update(username,password,firstName,lastName,email,phones){
             var newDetails= {"username" : username, "firstName": firstName,
-                "lastName":lastName , "email" :email ,"password" :password};
+                "lastName":lastName , "emails" :email.split(",") ,"phones" :phones.split(",") ,"password" :password,
+                "roles":currentUser.roles};
 
             UserService.updateUser(newDetails,currentUser._id)
                 .then(
                     function(response){
-                            UserService.setCurrentUser(response.data);
+                        $rootScope.currentUser=response.data;
                             vm.message="Profile Update";
                         },
                     function(err){
-
                             vm.message="Couldn't update the profile";
                         });
         }

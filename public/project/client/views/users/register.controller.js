@@ -3,7 +3,7 @@
         angular.module("MusicApp")
         .controller("RegisterController",RegisterController);
 
-    function RegisterController(UserService,$location) {
+    function RegisterController(UserService,$location,$rootScope) {
 
         var vm=this;
         vm.register=register;
@@ -40,16 +40,30 @@
                 return;
             }
 
-            UserService.register(user).
-            then(function (response){
-                if(response.data) {
-                    UserService.setCurrentUser(response.data);
+
+            UserService.register(user)
+                .then(function (user){
+                        if(user.data!=null){
+                            $rootScope.currentUser=user;
+                            $location.url("/profile");
+                        }
+                        else{
+                            vm.message="Username already exists";
+                        }
+                    },
+                    function (error){
+                        console.log(error);
+                    })
+
+            /*UserService.register(user)
+                .then(function (user){
+                    UserService.setCurrentUser(user.data);
+                        console.log("user",user.username);
                     $location.url("/profile");
-                }
-                else{
-                    vm.message="Username already exists";
-                }
-            });
+                },
+                function (error){
+                    vm.message="Username already";
+                })*/
         }
     }
 })();

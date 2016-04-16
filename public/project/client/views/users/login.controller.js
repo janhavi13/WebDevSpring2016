@@ -4,35 +4,30 @@
         .module("MusicApp")
         .controller("LoginController",LoginController);
 
-    function LoginController($location,UserService){
-        var vm=this;
-        vm.login=login;
-        vm.message=null;
+    function LoginController(UserService,$location,$rootScope) {
+        var vm = this;
+        vm.login = login;
+        vm.message = null;
 
-        console.log("hola");
-        function init(){
+        function init() {
         }
+
         init();
 
         function login(user) {
-            if(!user) {
+            if(!user){
+                vm.message = "Please enter login details";
                 return;
             }
-            console.log("am in controller");
-            UserService
-                .findUserByCredentials({
-                    username: user.username,
-                    password: user.password
-                })
+            UserService.login(user)
                 .then(function(response){
-                    if(response.data) {
-                        UserService.setCurrentUser(response.data);
+                        $rootScope.currentUser = response.data;
                         $location.url("/profile");
+                    },
+                    function(err){
+                        vm.message = "username or password not found";
                     }
-                    else{
-                        vm.message="Username and password doesnot match";
-                    }
-                });
+                );
         }
     }
 })();

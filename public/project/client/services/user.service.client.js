@@ -15,51 +15,61 @@
             register: register,
             getAllUsers:getAllUsers,
             getUserById:getUserById,
-            deleteUser:deleteUser
+            deleteUser:deleteUser,
+            login:login,
+            logout:logout,
+            addNewUserByAdmin:addNewUserByAdmin
         };
         return model;
 
         function setCurrentUser(user){
-
             $rootScope.currentUser=user;
         }
-
-
 
         function findAllUsers(callback) {
             callback(users);
         }
 
-
         function findUserByCredentials(credentials){
-            return $http.get("/api/assignment/user/"+credentials.username+"/"+credentials.password);
+            return $http.get("/api/project/user/"+credentials.username+"/"+credentials.password);
         }
 
         function register(user){
-            return $http.post("/api/assignment/register", user);
+            return $http.post("/api/project/register", user);
         }
 
-        function updateUser(user){
-            return $http.put("/api/assignment/updateUser/"+user._id,user);
+        function updateUser(user,currentUserId){
+            return $http.put("/api/project/updateUser/"+currentUserId,user);
         }
 
         function deleteUser(user){
-            return $http.delete("/api/assignment/deleteUser/"+user._id);
+            return $http.delete("/api/project/deleteUser/"+user);
         }
 
         function getAllUsers(){
-            return $http.get("/api/assignment/getAllUsers/");
+            console.log("getAllUsers");
+            return $http.get("/api/project/getAllUsers");
         }
 
         function getUserByUserName(username){
-            return $http.get("/api/assignment/getUserByUserName/"+username);
+            return $http.get("/api/project/getUserByUserName/"+username);
         }
 
         function getUserById(id){
-            return $http.get("/api/assignment/getUserById/"+id);
+            return $http.get("/api/project/getUserById/"+id);
         }
 
+        function login(user) {
+            return $http.post("/api/project/login",user);}
 
+        function logout() {
+            console.log("entered logout controller");
+            return $http.post("/api/project/logout");
+        }
+
+        function addNewUserByAdmin(user){
+            return $http.post("/api/project/addNewUser",user);
+        }
     }
 })();
 

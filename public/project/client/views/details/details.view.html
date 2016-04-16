@@ -33,16 +33,33 @@ Name: {{details.name}}
 
 
 
-        <audio ng-src="{{details.preview_url | trusted}}" audioplayer controls>
+        <audio ng-src="{{details.preview_url | trusted}}" audioplayer controls >
     </audio>
 
-
-            <button ng-show="currentUser" class="btn btn-primary" ng-click="likeSong(details.name)">
-
-                <span class="glyphicon glyphicon-star"></span>
-
+<div ng-show="currentUser">
+            <button class="btn btn-primary"
+                    ng-click="model.favorite(details.preview_url)">
+    <span ng-show="model.song.likes.indexOf(currentUser._id) > -1"
+          class="glyphicon glyphicon-star"></span>
+    <span ng-show="!model.song || !model.song.likes || model.song.likes.indexOf(currentUser._id) == -1"
+          class="glyphicon glyphicon-star-empty"></span>
             </button>
 
+</div>
+
+
+
+        </div>
+
+        <div ng-if="model.song.userLikes">
+            <h4>Other Users that Like This Movie</h4>
+            <ul>
+                <li ng-repeat="user in model.song.userLikes">
+                    <a href="#/profile/{{user.username}}">
+                        {{user.username}}
+                    </a>
+                </li>
+            </ul>
         </div>
 
 </body>

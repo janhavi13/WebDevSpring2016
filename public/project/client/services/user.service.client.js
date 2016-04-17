@@ -18,7 +18,9 @@
             deleteUser:deleteUser,
             login:login,
             logout:logout,
-            addNewUserByAdmin:addNewUserByAdmin
+            addNewUserByAdmin:addNewUserByAdmin,
+            addLikedSong:addLikedSong,
+            getLikedSong:getLikedSong
         };
         return model;
 
@@ -70,6 +72,32 @@
         function addNewUserByAdmin(user){
             return $http.post("/api/project/addNewUser",user);
         }
+
+
+        function addLikedSong(songDetails,userDetails){
+
+            console.log(songDetails);
+            console.log(userDetails);
+
+            var songLike = {
+                "songID":songDetails.songID,
+                "title":songDetails.title,
+                "poster":songDetails.poster,
+                "userID":userDetails._id,
+                "username":userDetails.username,
+                "comment":"",
+                "created": (new Date()).getTime()
+            };
+
+            return $http.post("/api/project/addlikedsong",songLike);
+        };
+
+
+        function getLikedSong(userID){
+
+            return $http.get("/api/project/getlikedsong/"+userID);
+
+        };
     }
 })();
 

@@ -14,8 +14,7 @@ module.exports =function(){
             emails:[String],
             roles:[String],
             phones:[String],
-            likes: [String],
-            likesSongs: [SongSchema],
+
         },
         {collection :'userDetails'});
     return UserSchema;

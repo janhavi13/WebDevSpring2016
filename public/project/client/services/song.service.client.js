@@ -5,17 +5,25 @@
 
     function SongService($http) {
         var api = {
-            userLikesSong: userLikesSong,
-            findUserLikes: findUserLikes
+            findSongByTrackId:findSongByTrackId,
+            checkIfLiked:checkIfLiked,
+            fetchComments:fetchComments
         };
         return api;
 
-        function findUserLikes (song) {
-            return $http.get("/api/project/song/"+song+"/user");
+
+        function findSongByTrackId(trackID, callback) {
+            console.log("TrackID", trackID)
+            $http.get("https://api.spotify.com/v1/tracks/"+trackID)
+                .success(callback);
         }
 
-        function userLikesSong(id, songID) {
-            return $http.post("/api/project/user/"+id+"/song/"+songID);
-        }
+        function checkIfLiked(id,songID){
+            return $http.get("/api/project/checklike/"+id+"/"+songID);
+        };
+
+        function fetchComments(songID){
+            return $http.get("/api/project/comments/"+songID);
+        };
     }
 })();

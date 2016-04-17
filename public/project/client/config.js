@@ -65,7 +65,8 @@
 
             .when("/details/:trackID",{
                 templateUrl:"views/details/details.view.html",
-                controller:"DetailsController"
+                controller:"DetailsController",
+                controllerAs: "model"
             })
 
 

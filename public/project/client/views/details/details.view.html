@@ -3,47 +3,93 @@
 <h1>Track Information</h1>
 
 <div>
-    <image height="200px" width="200px" ng-src="{{details.album.images[1].url}}"></image>
+    <image height="200px" width="200px" ng-src="{{model.details.album.images[1].url}}"></image>
 
 </div>
 
 <div>
-Name: {{details.name}}
+    Name: {{model.details.name}}
 </div>
 
+
 <div>
-    Album: {{details.album.name}}
+    Id: {{model.details.id}}
+</div>
+<div>
+    Album: {{model.details.album.name}}
 </div>
 
 <!--<div>
 <a href="{{details.preview_url}}">Play</a>
 </div>-->
 
-<div ng-show="currentUser">
-    Comment:
 
-     <textarea placeholder="Comment" class="form-control"></textarea>
+<!--
+<div ng-show="model.user">
+    <label>Comment:</label><br>
+    <textarea rows="2">
 
-
+    </textarea><br>
+    <button>Save</button><button>Cancel</button>
 </div>
 
+<div ng-show="model.comments">
+    <h2>Comments : </h2><br>
+    <table>
+        <tr ng-repeat="comment in model.comments">
+            <td>
+                {{comment.username}}<br>
+                {{comment.comment}}
+            </td>
+        </tr>
+    </table>
+</div>-->
 
-    <div class="media">
-        <div class="media-left">
+<div class="media">
+    <div class="media-left">
 
 
 
-        <audio ng-src="{{details.preview_url | trusted}}" audioplayer controls>
-    </audio>
+        <audio ng-src="{{model.details.preview_url | trusted}}" audioplayer controls >
+        </audio>
 
-
-            <button ng-show="currentUser" class="btn btn-primary" ng-click="likeSong(details.name)">
-
-                <span class="glyphicon glyphicon-star"></span>
-
+       <!-- <div ng-show="currentUser">
+            <button class="btn btn-primary"
+                    ng-click="model.favorite(details.id)">
+    <span ng-show="model.song.likes.indexOf(currentUser._id) > -1"
+          class="glyphicon glyphicon-star"></span>
+    <span ng-show="!model.song || !model.song.likes || model.song.likes.indexOf(currentUser._id) == -1"
+          class="glyphicon glyphicon-star-empty"></span>
             </button>
 
+        </div>-->
+
+     <!--   <div ng-hide="model.liked">
+            <a ng-click="likeSong()">Like</a>
         </div>
+
+        <div ng-show="model.liked">
+            <a ng-click="removeLikedSong()">Unlike</a>
+        </div>
+-->
+
+
+    </div>
+</div>
+
+<!--<div ng-show="currentUser">
+
+    <button ng-show="model.liked" class="btn btn-danger"
+            ng-click="model.removeLikedSong()">
+        <span class="fa fa-star"></span>
+    </button>
+
+    <button ng-hide="model.liked" class="btn btn-secondary"
+            ng-click="model.likeSong()">
+        <span class="fa fa-star-o"></span>
+    </button>
+
+</div>-->
 
 </body>
 </html>

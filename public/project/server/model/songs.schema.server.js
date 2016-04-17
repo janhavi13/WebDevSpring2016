@@ -1,18 +1,16 @@
 module.exports = function(mongoose) {
 
-    // use mongoose to declare a movie schema
+    // use mongoose to declare a song schema
     var SongSchema = mongoose.Schema({
         songID:String,
-        songUrl: String,
         title: String,
         poster: String,
-        // ids of users that like this movie
-        likes: [String],
-        userLikes: [
-            {username: String}
-        ],
-        // store movie documents in this collection
+
+
     }, {collection: 'songs'});
+
+
+    SongSchema.index({songID:1},{unique:true});
 
     return SongSchema;
 

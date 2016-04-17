@@ -1,3 +1,4 @@
+var mongoose= require ("mongoose");
 module.exports = function(mongoose) {
 
     // use mongoose to declare a song schema

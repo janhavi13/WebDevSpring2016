@@ -5,7 +5,7 @@ module.exports = function(mongoose) {
     var SongSchema = mongoose.Schema({
         songID:String,
         title: String,
-        poster: String,
+        poster: String
 
 
     }, {collection: 'songs'});

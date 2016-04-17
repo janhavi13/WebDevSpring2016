@@ -8,7 +8,7 @@
         var vm = this;
         var songID = $routeParams.trackID;
         var currentUser = $rootScope.currentUser;
-       // vm.favorite = favorite;
+       vm.favorite = favorite;
 
         $http.get("https://api.spotify.com/v1/tracks/"+trackID)
             .success(renderDetails);
@@ -39,12 +39,12 @@
         }
 
 
-            function favorite(song) {
+            function favorite(songID) {
                 if(currentUser) {
                     vm.song.likes = [];
-                    vm.song.likes.push(currentUser.username);
+                    vm.song.likes.push(currentUser._id);
                     SongService
-                        .userLikesSong(currentUser.username, song);
+                        .userLikesSong(currentUser._id, songID);
                 } else {
                     $location.url("/login");
                 }

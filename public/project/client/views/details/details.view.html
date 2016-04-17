@@ -11,6 +11,10 @@
 Name: {{details.name}}
 </div>
 
+
+<div>
+    Id: {{details.id}}
+</div>
 <div>
     Album: {{details.album.name}}
 </div>
@@ -38,7 +42,7 @@ Name: {{details.name}}
 
 <div ng-show="currentUser">
             <button class="btn btn-primary"
-                    ng-click="model.favorite(details.preview_url)">
+                    ng-click="model.favorite(details.id)">
     <span ng-show="model.song.likes.indexOf(currentUser._id) > -1"
           class="glyphicon glyphicon-star"></span>
     <span ng-show="!model.song || !model.song.likes || model.song.likes.indexOf(currentUser._id) == -1"

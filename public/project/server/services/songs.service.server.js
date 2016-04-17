@@ -1,9 +1,10 @@
 module.exports = function(app, songModel, userModel) {
-    app.post("/api/project/user/:userId/song/:songUrl", userLikesSong);
+    app.post("/api/project/user/:userId/song/:songID", userLikesSong);
     app.get("/api/project/song/:songID/user", findUserLikes);
 
     function findUserLikes (req, res) {
         var songID = req.params.songID;
+        var userId = req.params.userId;
 
         var song = null;
         songModel
@@ -35,14 +36,14 @@ module.exports = function(app, songModel, userModel) {
     function userLikesSong(req, res) {
        // var songSpotify  = req.body;
         var userId = req.params.userId;
-        var songUrl = req.params.songUrl;
+        var songID = req.params.songID;
         var song;
 
         songModel
-            .userLikesSong(username, songUrl)
+            .userLikesSong(userId, songID)
             .then(
                 function (song) {
-                    return userModel.userLikesSong(username, songUrl);
+                    return userModel.userLikesSong(userId, songID);
                 },
                 function (err) {
                     res.status(400).send(err);

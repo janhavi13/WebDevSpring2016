@@ -14,8 +14,8 @@
             return $http.get("/api/project/song/"+song+"/user");
         }
 
-        function userLikesSong(username, song) {
-            return $http.post("/api/project/user/"+username+"/song/"+song);
+        function userLikesSong(id, songID) {
+            return $http.post("/api/project/user/"+id+"/song/"+songID);
         }
     }
 })();

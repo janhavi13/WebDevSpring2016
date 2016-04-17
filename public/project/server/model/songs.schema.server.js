@@ -2,6 +2,7 @@ module.exports = function(mongoose) {
 
     // use mongoose to declare a movie schema
     var SongSchema = mongoose.Schema({
+        songID:String,
         songUrl: String,
         title: String,
         poster: String,

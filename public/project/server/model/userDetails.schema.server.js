@@ -3,7 +3,7 @@ var mongoose= require ("mongoose");
 module.exports =function(){
 
 
-    var SongSchema = require("./songs.schema.server.js")(mongoose);
+   // var SongSchema = require("./songs.schema.server.js")(mongoose);
 
 
     var UserSchema =mongoose.Schema(

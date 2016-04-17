@@ -1,4 +1,4 @@
-module.exports = function(app,songModel) {
+/*module.exports = function(app,songModel) {
     app.get("/api/project/getlikedsong/:userid", getLikedSong);
     app.get("/api/project/comments/:songid", getSongComments);
     app.get("/api/project/checklike/:userid/:songID",checkIfLiked);
@@ -90,4 +90,4 @@ module.exports = function(app,songModel) {
                 });
 
     }
-}
+}*/

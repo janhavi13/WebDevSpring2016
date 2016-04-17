@@ -4,9 +4,10 @@
         .controller("ProfileController",ProfileController);
 
 
-    function ProfileController(UserService,$rootScope){
+        function ProfileController($rootScope,$scope,UserService,$location,$routeParams){
 
         var currentUser= $rootScope.currentUser;
+        var profileUserId = $routeParams.userid;
         var vm=this;
         vm.message= null;
         vm.firstName=currentUser.firstName;
@@ -17,18 +18,23 @@
         vm.phones=currentUser.phones;
         vm.update=update;
 
-        console.log( "user...emailname", vm.email);
-        function init(){
 
+        console.log("vv",$routeParams);
+
+
+        function init(){
+            console.log("in init");
+            getSongs(profileUserId);
         }
-        init;
+
+        init();
 
         function update(username,password,firstName,lastName,email,phones){
             var newDetails= {"username" : username, "firstName": firstName,
                 "lastName":lastName , "emails" :email ,"phones" :phones ,"password" :password,
                 "roles":currentUser.roles};
 
-            console.log("the deatails from view",newDetails);
+            console.log("the details from view",newDetails);
             UserService.updateUser(newDetails,currentUser._id)
                 .then(
                     function(response){
@@ -38,6 +44,20 @@
                     function(err){
                         vm.message="Couldn't update the profile";
                     });
+        }
+
+
+        function getSongs(userid){
+            UserService
+                .getLikedSongs(userid)
+                .then(function(res){
+                    if(res.data.length==0){
+                        vm.songs = null;
+                    }else{
+                        vm.songs = res.data;
+                    }
+
+                });
         }
     }
 })();

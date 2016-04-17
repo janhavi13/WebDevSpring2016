@@ -46,10 +46,23 @@
                 }
             })
 
+            .when("/profile/:userid",{
+                templateUrl:"views/users/profile.view.html",
+                controller:"ProfileController",
+                controllerAs:"model",
+                resolve :{
+                    loggedin:checkLoggedin
+                }
+
+            })
+
             .when("/search", {
                 templateUrl: "views/search/search.view.html",
                 controller:"SearchController",
-                controllerAs:"model"
+                controllerAs:"model",
+                resolve :{
+                    loggedin:checkLoggedin
+                }
             })
 
             .when("/search/:trackId", {
@@ -66,7 +79,10 @@
             .when("/details/:trackID",{
                 templateUrl:"views/details/details.view.html",
                 controller:"DetailsController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve :{
+                    loggedin:checkLoggedin
+                }
             })
 
 
@@ -107,20 +123,23 @@
         $http.get('/api/project/loggedin').success(function(user)
         {
             $rootScope.errorMessage = null;
-            // User is Authenticated
+
             if (user !== '0')
             {
+                // User is Authenticated
                 $rootScope.currentUser = user;
                 deferred.resolve();
             }
-            // User is Not Authenticated
             else
             {
+                // User is Not Authenticated
                 $rootScope.errorMessage = 'You need to log in.';
                 deferred.reject();
                 $location.url('/login');
             }
         });
+
+
 
         return deferred.promise;
     };

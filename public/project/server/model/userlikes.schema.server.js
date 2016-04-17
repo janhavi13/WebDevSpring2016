@@ -1,7 +1,9 @@
-module.exports = function(mongoose) {
+var mongoose= require ("mongoose");
+
+module.exports = function() {
 
 
-    var UserLikeSchema = mongoose.Schema({
+    var ProjectRelationsSchema = mongoose.Schema({
         songID: String,
         title:String,
         poster:String,
@@ -10,5 +12,5 @@ module.exports = function(mongoose) {
         comment: String,
         created: Date
     }, {collection: 'userlikes'});
-    return UserLikeSchema;
+    return ProjectRelationsSchema;
 };

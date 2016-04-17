@@ -1,10 +1,12 @@
-/*module.exports = function(app,songModel) {
+module.exports = function(app, songModel) {
     app.get("/api/project/getlikedsong/:userid", getLikedSong);
     app.get("/api/project/comments/:songid", getSongComments);
     app.get("/api/project/checklike/:userid/:songID",checkIfLiked);
     app.post("/api/project/addlikedsong", addLikedSong);
     app.put("/api/project/updatecomment",updateComment);
-    app.delete("/api/project/deletesong/:userid/:songid",deleteSong);
+    app.delete("/api/project/removelikedsongs/:userid/:songid",deleteSong);
+
+
 
     function getLikedSong(req,res){
         var userId  = req.params.userid;
@@ -34,8 +36,8 @@
 
     function addLikedSong(req,res){
         var songDetails = req.body;
-        movieModel
-            .addMovieLike(songDetails)
+        songModel
+            .addLikedSong(songDetails)
             .then(function(response){
                     res.send(200);
                 },
@@ -44,6 +46,7 @@
                 });
 
     };
+
 
     function updateComment(req,res){
         var updated = req.body;
@@ -63,11 +66,12 @@
     };
 
     function deleteSong(req,res){
+        console.log("DeleteSong");
         var userID  = req.params.userid;
         var songID = req.params.songid;
 
         songModel
-            .deleteSongUser(userID,songID)
+            .removeLikedSongs(userID,songID)
             .then(function(response){
                     res.send(200);
                 },
@@ -90,4 +94,4 @@
                 });
 
     }
-}*/
+}

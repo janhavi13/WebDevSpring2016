@@ -120,6 +120,8 @@ module.exports= function(db){
         return deferred.promise;
     }
 
+
+
     function getUserById(id){
         var deferred= q.defer();
         User.findOne({"_id":id},function(err,doc){

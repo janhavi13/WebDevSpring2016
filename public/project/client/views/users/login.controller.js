@@ -20,9 +20,10 @@
                 return;
             }
             UserService.login(user)
-                .then(function(response){
-                        $rootScope.currentUser = response.data;
-                        $location.url("/profile");
+                .then(function(response) {
+                    console.log(response);
+                    $rootScope.currentUser = response.data;
+                    $location.url("/profile/" + response.data._id);
                     },
                     function(err){
                         vm.message = "username or password not found";

@@ -1,7 +1,7 @@
 var passport=require('passport');
 var LocalStrategy =require('passport-local').Strategy;
 
-module.exports = function(app,userModel) {
+module.exports = function(app,userModel, songModel) {
 
     var auth=authorized;
     app.post('/api/project/login', passport.authenticate('local'), login);
@@ -16,8 +16,9 @@ module.exports = function(app,userModel) {
     app.get("/api/project/getAllUsers",auth,getAllUsers);
     app.get("/api/project/getUserByUserName/:username",getUserByUserName);
     app.get("/api/project/getUserById/:id",getUserById);
+    app.get("/api/project/getlikedsongs/:id", getLikedSongs);
 
-    app.get("/api/project/profile/:id", profile);
+    // app.get("/api/project/profile/:id", profile);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -167,7 +168,7 @@ module.exports = function(app,userModel) {
         }
     }
 
-    function getAllUsers(req,res){
+    function getAllUsers(req,res) {
         if(isAdmin(req.user)){
             userModel.findAllUsers()
                 .then(function (users) {
@@ -188,7 +189,7 @@ module.exports = function(app,userModel) {
     }
 
     function getUserById(req,res){
-        var id=rq.params.id;
+        var id=req.params.id;
         var user=userModel.getUserById(id);
         return user;
     }
@@ -228,8 +229,21 @@ module.exports = function(app,userModel) {
     }
 
 
+    function getLikedSongs(req, res) {
+        var userId = req.params.id;
+        songModel.getLikedSongs(userId)
+            .then(function(songs){
+                console.log(songs);
+                res.send(songs);
+            },function(err){
+                res.status(400).send(err);
+            });
 
-    function profile(req, res) {
+    }
+
+
+
+    /*function profile(req, res) {
         var userId = req.params.id;
         var user = null;
 
@@ -267,7 +281,7 @@ module.exports = function(app,userModel) {
                     res.status(400).send(err);
                 }
             )
-    }
+    }*/
 }
 
 

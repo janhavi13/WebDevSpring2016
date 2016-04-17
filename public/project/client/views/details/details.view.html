@@ -24,26 +24,19 @@
 </div>-->
 
 
-<!--
 <div ng-show="model.user">
-    <label>Comment:</label><br>
-    <textarea rows="2">
 
-    </textarea><br>
-    <button>Save</button><button>Cancel</button>
+    <button ng-show="model.liked" class="btn btn-danger"
+            ng-click="model.removeLikedSong()">
+        <span class="fa fa-star"></span>
+    </button>
+
+    <button ng-hide="model.liked" class="btn btn-secondary"
+            ng-click="model.likeSong()">
+        <span class="fa fa-star-o"></span>
+    </button>
+
 </div>
-
-<div ng-show="model.comments">
-    <h2>Comments : </h2><br>
-    <table>
-        <tr ng-repeat="comment in model.comments">
-            <td>
-                {{comment.username}}<br>
-                {{comment.comment}}
-            </td>
-        </tr>
-    </table>
-</div>-->
 
 <div class="media">
     <div class="media-left">
@@ -90,6 +83,16 @@
     </button>
 
 </div>-->
+
+<div class="chat">
+    <h3 ng-hide="model.comments">None!</h3>
+    <div ng-show="model.comments" >
+        <div class="bubble me" ng-repeat="comment in model.comments">
+            <a href="#/profile/{{comment.userID}}">{{comment.username}} : </a> {{comment.comment}}
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>

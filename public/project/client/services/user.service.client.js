@@ -20,7 +20,7 @@
             logout:logout,
             addNewUserByAdmin:addNewUserByAdmin,
             addLikedSong:addLikedSong,
-            getLikedSong:getLikedSong
+            getLikedSongs:getLikedSongs
         };
         return model;
 
@@ -80,22 +80,24 @@
             console.log(userDetails);
 
             var songLike = {
-                "songID":songDetails.songID,
-                "title":songDetails.title,
+                "songID":songDetails.id,
+                "title":songDetails.name,
                 "poster":songDetails.poster,
                 "userID":userDetails._id,
                 "username":userDetails.username,
-                "comment":"",
+                "comment":"Soham",
                 "created": (new Date()).getTime()
             };
 
-            return $http.post("/api/project/addlikedsong",songLike);
+            var liked = $http.post("/api/project/addlikedsong",songLike);
+            console.log(liked);
+            return liked;
         };
 
 
-        function getLikedSong(userID){
+        function getLikedSongs(userID){
 
-            return $http.get("/api/project/getlikedsong/"+userID);
+            return $http.get("/api/project/getlikedsongs/" + userID);
 
         };
     }

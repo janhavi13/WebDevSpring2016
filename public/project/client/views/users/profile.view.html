@@ -59,6 +59,21 @@
                 </div>
             </div>
 
+            <div>
+                <h3>Songs liked </h3>
+                <h4 ng-hide="model.songs">None!</h4>
+                <table class="table table-bordered table-responsive rounded-table" ng-show="model.songs">
+                    <thead>
+                    <th>Movie</th>
+                    <th>Comment</th>
+                    </thead>
+                    <tr ng-repeat="song in model.songs">
+                        <td><a href="#/details/{{song.songID}}">{{song.title}}</a></td>
+                        <td>{{movie.comment}}</td>
+                    </tr>
+                </table>
+            </div>
+
         </form>
 
     </div>

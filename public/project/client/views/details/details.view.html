@@ -19,10 +19,6 @@
     Album: {{model.details.album.name}}
 </div>
 
-<!--<div>
-<a href="{{details.preview_url}}">Play</a>
-</div>-->
-
 
 <div ng-show="model.user">
 
@@ -41,56 +37,44 @@
 <div class="media">
     <div class="media-left">
 
-
-
         <audio ng-src="{{model.details.preview_url | trusted}}" audioplayer controls >
         </audio>
-
-       <!-- <div ng-show="currentUser">
-            <button class="btn btn-primary"
-                    ng-click="model.favorite(details.id)">
-    <span ng-show="model.song.likes.indexOf(currentUser._id) > -1"
-          class="glyphicon glyphicon-star"></span>
-    <span ng-show="!model.song || !model.song.likes || model.song.likes.indexOf(currentUser._id) == -1"
-          class="glyphicon glyphicon-star-empty"></span>
-            </button>
-
-        </div>-->
-
-     <!--   <div ng-hide="model.liked">
-            <a ng-click="likeSong()">Like</a>
-        </div>
-
-        <div ng-show="model.liked">
-            <a ng-click="removeLikedSong()">Unlike</a>
-        </div>
--->
-
 
     </div>
 </div>
 
-<!--<div ng-show="currentUser">
 
-    <button ng-show="model.liked" class="btn btn-danger"
-            ng-click="model.removeLikedSong()">
-        <span class="fa fa-star"></span>
-    </button>
 
-    <button ng-hide="model.liked" class="btn btn-secondary"
-            ng-click="model.likeSong()">
-        <span class="fa fa-star-o"></span>
-    </button>
+<div ng-show="model.user">
+    <div ng-show="model.isNewComment">
+        <button ng-hide="model.commentFlag" class="btn btn-primary " ng-click="model.commentFlag = !model.commentFlag">Add Comment</button>
+    </div>
+    <div ng-show="!model.isNewComment">
+        <button ng-hide="model.commentFlag" class="btn btn-primary " ng-click="model.commentFlag = !model.commentFlag">Update Comment</button>
+    </div>
+</div>
 
-</div>-->
+<div ng-show="model.commentFlag">
+    <br>
+    <label for="userComment">Comment:</label><br>
+    <textarea id="userComment"class="form-control" value="" rows="2" ng-model="model.userComment">
+    </textarea><br>
+    <button ng-show="model.isNewComment" class="btn btn-primary" ng-click="model.updateComment()">Save</button>
+    <button ng-show="!model.isNewComment" class="btn btn-primary" ng-click="model.updateComment()">Update</button>
+    <button class="btn btn-danger" ng-click="model.commentFlag = !model.commentFlag">Cancel</button>
+</div>
 
 <div class="chat">
-    <h3 ng-hide="model.comments">None!</h3>
-    <div ng-show="model.comments" >
+    <h3 class="comment-div">Comments : </h3>
+    <h4 ng-hide="model.comments">No comments </h4>
+
+    <div ng-show="model.comments">
         <div class="bubble me" ng-repeat="comment in model.comments">
             <a href="#/profile/{{comment.userID}}">{{comment.username}} : </a> {{comment.comment}}
         </div>
     </div>
+</div>
+</div>
 </div>
 
 

@@ -90,15 +90,18 @@ module.exports= function(uuid,db,mongoose,relationModel){
         var deferred = q.defer();
 
         var update = {comment: comment};
-
+        console.log("coments updated on server",update)
+        console.log("userid",userID)
+        console.log("songid",songID);
         relationModel.update({userID:userID, songID:songID},
             {$set : update},
+
             function(err,doc){
-                //console.log(doc);
+                console.log("in update liked song",doc);
                 if(err){
                     deferred.reject(err);
                 }else{
-                    //console.log(doc);
+                    console.log("is comment updated:",doc);
                     deferred.resolve(doc);
                 }
             });

@@ -12,6 +12,17 @@
         vm.removeLikedSong = removeLikedSong;
         vm.user = $rootScope.currentUser;
 
+        vm.updateComment = updateComment;
+
+        vm.user = $rootScope.currentUser;
+        var songid = $routeParams.songID;
+        //console.log(imdbId);
+        vm.isNewComment = true;
+        vm.commentFlag = false;
+
+
+
+
         function init() {
 
             getTrack(trackID);
@@ -28,7 +39,7 @@
                 checkIfLiked();
             }
 
-            //fetchComments();
+            fetchComments();
         }
 
         function likeSong() {
@@ -78,14 +89,44 @@
 
         function fetchComments(){
             SongService
-                .fetchComments(vm.details.trackID)
+                .fetchComments(vm.details.id)
                 .then(function(response){
-                        console.log(response);
-                        vm.comments = response.data;
+                        console.log("Comments");
+                        console.log(response.data);
+                        if(response.data.length!=0){
+                            vm.comments = response.data;
+                            if(vm.user){
+
+                                response.data.forEach(function(comment){
+                                    if(comment.userID == vm.user._id){
+                                        vm.userComment = comment.comment;
+                                        vm.isNewComment = false;
+                                    }
+                                });
+                            }
+                        }else{
+                            vm.comments = null;
+                        }
+
                     },
                     function(err){
                         console.log(err);
                     });
+        }
+
+        function updateComment() {
+            console.log("Update was called");
+
+            if(vm.isNewComment){
+                console.log("This is a new comment");
+                likeSong();
+            }
+
+            SongService.updateSongById($rootScope.currentUser._id,vm.details.id,vm.userComment);
+
+            vm.commentFlag = false;
+
+            init();
         }
     }
 })();

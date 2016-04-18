@@ -85,7 +85,7 @@
                 "poster":songDetails.poster,
                 "userID":userDetails._id,
                 "username":userDetails.username,
-                "comment":"Soham",
+                "comment":"",
                 "created": (new Date()).getTime()
             };
 

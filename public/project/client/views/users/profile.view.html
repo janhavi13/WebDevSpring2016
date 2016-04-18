@@ -54,7 +54,7 @@
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="button" class="btn btn-primary" ng-click="model.update(model.username,model.password,
+                    <button type="button" class="btn btn-primary form-control" ng-click="model.update(model.username,model.password,
                         model.firstName,model.lastName,model.email,model.phones)">Update</button>
                 </div>
             </div>
@@ -64,12 +64,12 @@
                 <h4 ng-hide="model.songs">None!</h4>
                 <table class="table table-bordered table-responsive rounded-table" ng-show="model.songs">
                     <thead>
-                    <th>Movie</th>
+                    <th>Song</th>
                     <th>Comment</th>
                     </thead>
                     <tr ng-repeat="song in model.songs">
                         <td><a href="#/details/{{song.songID}}">{{song.title}}</a></td>
-                        <td>{{movie.comment}}</td>
+                        <td>{{song.comment}}</td>
                     </tr>
                 </table>
             </div>

@@ -8,7 +8,8 @@
             findSongByTrackId:findSongByTrackId,
             checkIfLiked:checkIfLiked,
             fetchComments:fetchComments,
-            removeLikedSongs: removeLikedSongs
+            removeLikedSongs: removeLikedSongs,
+            updateSongById:updateSongById
         };
         return api;
 
@@ -29,6 +30,12 @@
 
         function fetchComments(songID){
             return $http.get("/api/project/comments/"+songID);
+        };
+
+        function updateSongById(userid,songid, comment){
+
+            var updatedObject = {"userid" : userid, "songID" : songid , "comment" : comment};
+            return $http.put("/api/project/updatecomment",updatedObject);
         };
 
 

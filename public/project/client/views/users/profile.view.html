@@ -57,11 +57,12 @@
                     <button type="button" class="btn btn-primary form-control" ng-click="model.update(model.username,model.password,
                         model.firstName,model.lastName,model.email,model.phones)">Update</button>
                 </div>
-            </div>
+            </div> </form></div>
 
-            <div>
-                <h3>Songs liked </h3>
-                <h4 ng-hide="model.songs">None!</h4>
+<div class="row">
+            <div class="search-result">
+                <h2 class="page-header"> Favorites </h2>
+                <h6 ng-hide="model.songs">no favourites</h6>
                 <table class="table table-bordered table-responsive rounded-table" ng-show="model.songs">
                     <thead>
                     <th>Song</th>
@@ -73,10 +74,8 @@
                     </tr>
                 </table>
             </div>
+</div>
 
-        </form>
-
-    </div>
 </div>
 
 </body>

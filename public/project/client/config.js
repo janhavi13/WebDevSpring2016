@@ -61,7 +61,7 @@
                 controller:"SearchController",
                 controllerAs:"model",
                 resolve :{
-                    loggedin:checkLoggedin
+                    loggedin:checkCurrentUser
                 }
             })
 
@@ -81,7 +81,7 @@
                 controller:"DetailsController",
                 controllerAs: "model",
                 resolve :{
-                    loggedin:checkLoggedin
+                    loggedin:checkCurrentUser
                 }
             })
 

@@ -67,7 +67,10 @@
 
             .when("/search/:trackId", {
                 templateUrl: "views/search/search.view.html",
-                controller:"SearchController"
+                controller:"SearchController",
+                resolve:{
+                    loggedin:checkCurrentUser
+                }
             })
 
 

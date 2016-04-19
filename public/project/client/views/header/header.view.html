@@ -1,6 +1,6 @@
 <html>
 <body>
- <nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="HeaderController">
+ <nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="HeaderController as model">
      <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -20,8 +20,9 @@
                 <li ng-show="currentUser" class="username" ng-class="{'active': $location.url()=='/profile'}">
                     <a ng-click="visitProfile()">{{currentUser.username}}</a></li>
 
-                <li ng-show="currentUser"><a href="#/home" class="add-under-line" ng-click="logout()">LogOut</a></li>
-
+                <li ng-show="currentUser">
+                    <a href="#/home" class="add-under-line" ng-click="model.logout()">Logout</a>
+                </li>
 
                 <li ng-class="{'active' : $location.url() == '/search'}">
                     <a href="#/search" class="add-under-line">

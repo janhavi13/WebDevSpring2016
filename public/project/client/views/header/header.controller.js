@@ -3,12 +3,25 @@
         .controller("HeaderController",HeaderController);
 
     function HeaderController($location, $scope, UserService, $rootScope){
-        $scope.logout=logout;
+      //  $scope.logout=logout;
+
+
+        var vm=this;
+        vm.logout=logout;
         $scope.visitProfile = visitProfile;
 
 
-        function logout(){
-            UserService.setCurrentUser(null);
+        function logout() {
+
+            console.log("entered header controller");
+            UserService.logout()
+                .then(function () {
+                        $rootScope.currentUser = null;
+                        $location.url('/home');
+                    },
+                    function (err) {
+                        console.log(err);
+                    });
         }
 
         function visitProfile(){

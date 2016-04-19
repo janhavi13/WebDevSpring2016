@@ -13,6 +13,9 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
+                <li ng-hide="currentUser" ng-class="{'active' : $location.url() == '/documentation'}">
+                    <a href="#/documentation" class="add-under-line"> Documentation</a></li>
+
                 <li ng-hide="currentUser" ng-class="{'active' : $location.url() == '/register'}">
                     <a href="#/register" class="add-under-line"> Register</a></li>
                 <li ng-hide="currentUser" ng-class="{'active' : $location.url() == '/login'}">

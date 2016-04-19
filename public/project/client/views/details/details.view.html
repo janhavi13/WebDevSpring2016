@@ -2,6 +2,8 @@
 <div ng-controller="DetailsController">
 <h1 class="page-header">Track Information</h1>
 
+
+
 <div class="bg-color"align="center">
 <div >
     <image height="200px" width="200px" ng-src="{{model.details.album.images[1].url}}"></image>
@@ -70,33 +72,17 @@
     <button class="btn btn-danger" ng-click="model.commentFlag = !model.commentFlag">Cancel</button>
 </div>
 
-<!--<div>
-    <h3 class="comment-div">Comments : </h3>
-    <h4 ng-hide="model.comments">No comments </h4>
+    <h2>Comments </h2>
 
-    <div ng-show="model.comments">
-        <div class="bubble me" ng-repeat="comment in model.comments">
-            <a href="#/profile/{{comment.userID}}">{{comment.username}} : </a> {{comment.comment}}
-        </div>
-    </div>
-</div> -->
-    <h4 class="page-header">Comments </h4>
     <table class="table table-responsive">
-        <thead>
-        <tr>
-        <th>User</th>
-        <th>Comment</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
         <tr ng-repeat="comment in model.comments">
-        <td><a href="#/profile/{{comment.userID}}">{{comment.username}}</a></td>
-        <td>{{comment.comment}}</td>
+        <td><a href="#/profile/{{comment.userID}}">User: {{comment.username}}</a></td>
+        <td>Comment: {{comment.comment}}</td>
             <td></td>
         </tr>
-</tbody>
+
         </table>
+
 
 </div>
 </div>
@@ -104,6 +90,10 @@
 
 </body>
 </html>
+
+
+
+
 
 
 

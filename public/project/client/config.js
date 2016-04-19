@@ -96,6 +96,11 @@
                 }
             })
 
+            .when("/documentation",{
+                templateUrl:"views/documentation/documentation.view.html",
+
+            })
+
             .otherwise({
                 redirectTo: "/home"
             })

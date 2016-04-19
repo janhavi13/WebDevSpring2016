@@ -26,12 +26,16 @@
 
     <button ng-show="model.liked" class="btn btn-danger"
             ng-click="model.removeLikedSong()">
-        <span class="fa fa-star"></span>
+
+            <span class="glyphicon glyphicon-heart"></span>
+
     </button>
 
     <button ng-hide="model.liked" class="btn btn-secondary"
             ng-click="model.likeSong()">
-        <span class="fa fa-star-o"></span>
+
+            <span class="glyphicon glyphicon-heart"></span>
+
     </button>
 </div>
 
@@ -101,22 +105,5 @@
 </body>
 </html>
 
-<!--
-<table class="table table-striped table-responsive">
-    <thead>
-    <tr>
-        <th>Name of the Track</th>
-        <th>Preview</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="track in model.searchResult.tracks.items">
-        <td>{{track.name}}</td>
-        <td>
 
-            <a href="#/details/{{track.id}}">Details</a></td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>-->
+

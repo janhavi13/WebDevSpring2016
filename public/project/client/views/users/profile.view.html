@@ -10,13 +10,14 @@
             {{model.message}}
         </div>
 
-        <div ng-show="!model.self && !model.followed">
+        <div align="center" ng-show="!model.self && !model.followed">
             <a ng-hide="model.edit" class="btn btn-primary" ng-click="model.followUser()">Follow</a>
         </div>
 
-        <div ng-show="!model.self && model.followed">
-            <a ng-hide="model.edit" class="btn btn-primary" ng-click="model.unfollowUser()">Unfollow</a>
+        <div align="center" ng-show="!model.self && model.followed">
+            <a ng-hide="model.edit" class="btn btn-success" ng-click="model.unfollowUser()">following</a>
         </div>
+        </br>
 
         <form class="form-horizontal">
             <div class="form-group">
@@ -71,44 +72,44 @@
                 </div>
             </div></form></div>
 
-<div class="row">
-            <div class="search-result">
-                <h2 class="page-header"> Favourites </h2>
-                <h6 ng-hide="model.songs">No favourites!</h6>
-                <table class="table table-bordered table-responsive rounded-table" ng-show="model.songs">
-                    <thead>
-                    <th>Song</th>
+
+            <div>
+                <h2> Favorites</h2>
+                <h6 ng-hide="model.songs">No favorites!</h6>
+                <table class="table table-responsive" ng-show="model.songs">
+
+                    <th>Song (click for song details)</th>
                     <th>Comment</th>
-                    </thead>
+
                     <tr ng-repeat="song in model.songs">
-                        <td><a href="#/details/{{song.songID}}">{{song.title}}</a></td>
+                        <td style="color: orange"><a href="#/details/{{song.songID}}">{{song.title}}</a></td>
                         <td>{{song.comment}}</td>
                     </tr>
                 </table>
             </div>
-</div>
 
-    <div class="col-sm-offset-2 col-sm-8">
+
+    <div>
         <h3>People you follow: </h3>
-        <h4 ng-hide="model.following">No one!</h4>
-        <table class="table table-bordered table-responsive rounded-table" ng-show="model.following">
-            <thead>
+        <h6 ng-hide="model.following">No one!</h6>
+        <table class="table  table-responsive" ng-show="model.following">
+           <!-- <thead>
             <th>People</th>
-            </thead>
+            </thead>-->
             <tr ng-repeat="user in model.following">
-                <td><a href="#/profile/{{user.following_userid}}">{{user.following_username}}</a></td>
+                <td style="color: orange"><a href="#/profile/{{user.following_userid}}">{{user.following_username}}</a></td>
             </tr>
         </table>
     </div>
-    <div class="col-sm-offset-2 col-sm-8 include-view">
+    <div>
         <h3>People following you: </h3>
-        <h4 ng-hide="model.followers">No one!</h4>
-        <table class="table table-bordered table-responsive rounded-table" ng-show="model.followers">
-            <thead>
+        <h6 ng-hide="model.followers">No one!</h6>
+        <table class="table  table-responsive" ng-show="model.followers">
+           <!-- <thead>
             <th>People</th>
-            </thead>
+            </thead>-->
             <tr ng-repeat="user in model.followers">
-                <td><a href="#/profile/{{user.follower_userid}}">{{user.follower_username}}</a></td>
+                <td style="color: orange"><a href="#/profile/{{user.follower_userid}}">{{user.follower_username}}</a></td>
             </tr>
         </table>
     </div>

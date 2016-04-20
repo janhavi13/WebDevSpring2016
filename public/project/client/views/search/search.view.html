@@ -19,6 +19,7 @@
             <thead>
             <tr>
                 <th>Name of the Track</th>
+                <th>Artist</th>
                 <th>Preview</th>
                 <th></th>
             </tr>
@@ -26,7 +27,8 @@
             <tbody>
             <tr ng-repeat="track in model.searchResult.tracks.items">
                 <td>{{track.name}}</td>
-                <td>
+                <td>{{track.artists[0].name}}</td>
+                <td style="color: orange">
                     <a href="#/details/{{track.id}}">Details</a></td>
                 <td></td>
             </tr>

@@ -34,6 +34,7 @@
 
         function renderDetails(response) {
             vm.details=response;
+
             if($rootScope.currentUser) {
                 checkIfLiked();
             }

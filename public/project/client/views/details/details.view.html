@@ -15,9 +15,9 @@
 </div>
 
 
-<!--<div>
-    Id: {{model.details.id}}
-</div>-->
+<div>
+    Artist: {{model.details.artists[0].name}}
+</div>
 <div>
     Album: {{model.details.album.name}}
 </div>
@@ -67,7 +67,7 @@
     <label for="userComment">Comment:</label><br>
     <textarea id="userComment"class="form-control" value="" rows="2" ng-model="model.userComment">
     </textarea><br>
-    <button ng-show="model.isNewComment" class="btn btn-primary" ng-click="model.updateComment()">Save</button>
+    <button ng-show="model.isNewComment" class="btn btn-success" ng-click="model.updateComment()">Save</button>
     <button ng-show="!model.isNewComment" class="btn btn-primary" ng-click="model.updateComment()">Update</button>
     <button class="btn btn-danger" ng-click="model.commentFlag = !model.commentFlag">Cancel</button>
 </div>

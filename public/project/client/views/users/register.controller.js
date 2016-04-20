@@ -43,9 +43,11 @@
 
             UserService.register(user)
                 .then(function (user){
-                        if(user.data!=null){
+                        if(user.data!=null) {
+                            console.log("Register");
+                            console.log(user);
                             $rootScope.currentUser=user;
-                            $location.url("/profile");
+                            $location.url("/profile/" + user.data._id);
                         }
                         else{
                             vm.message="Username already exists";

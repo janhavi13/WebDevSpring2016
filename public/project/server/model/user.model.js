@@ -6,6 +6,10 @@ module.exports= function(db){
     var UserSchema=require("./userDetails.schema.server.js")();
     var User=mongoose.model("User",UserSchema);
 
+    var followerSchema = require("./followers.schema.server.js")(mongoose);
+
+    var followersModel = mongoose.model('followersModel',followerSchema);
+
     var api = {
         findUserByCredentials: findUserByCredentials,
         findUserByUsername:findUserByUsername,
@@ -16,7 +20,12 @@ module.exports= function(db){
         getUserById:getUserById,
         findAllUsers:findAllUsers,
         findUsersByIds: findUsersByIds,
-        userLikesSong: userLikesSong
+        userLikesSong: userLikesSong,
+        addFollowing:addFollowing,
+        removeFollowing:removeFollowing,
+        getFollowing:getFollowing,
+        checkIfFollowed:checkIfFollowed,
+        getFollowers:getFollowers
     }
     return api;
 
@@ -68,7 +77,7 @@ module.exports= function(db){
         var email=userDetails.email;
         console.log("user details",userDetails);
         User.create(userDetails,function(err,doc){
-            if(err){
+            if(err) {
                 deferred.reject(err);
             }
             else{
@@ -124,7 +133,7 @@ module.exports= function(db){
 
     function getUserById(id){
         var deferred= q.defer();
-        User.findOne({"_id":id},function(err,doc){
+        User.findOne({"_id": id},function(err,doc) {
             if(err){
                 deferred.reject(err);
             }
@@ -149,7 +158,7 @@ module.exports= function(db){
         return deferred.promise;
     }
 
-    function findUsersByIds (ids) {
+    function findUsersByIds(ids) {
         var users = [];
         for (var u in ids) {
             var user = getUserById (ids[u]);
@@ -163,7 +172,7 @@ module.exports= function(db){
         return users;
     }
 
-    function userLikesSong (id, song) {
+    function userLikesSong(id, song) {
 
         var deferred = q.defer();
 
@@ -176,17 +185,16 @@ module.exports= function(db){
             } else {
 
                 // add song id to user likes
-                doc.likes.push (song.songID);
+                doc.likes.push(song.songID);
 
                 // save user
-                doc.save (function (err, doc) {
+                doc.save(function (err, doc) {
 
                     if (err) {
                         deferred.reject(err);
                     } else {
-
                         // resolve promise with user
-                        deferred.resolve (doc);
+                        deferred.resolve(doc);
                     }
                 });
             }
@@ -195,7 +203,91 @@ module.exports= function(db){
         return deferred;
     }
 
+    function addFollowing(details) {
+        var deferred = q.defer();
 
+        followersModel.create(details, function(err,doc) {
+            if(err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+
+            }
+        });
+
+        //return a promise
+        return deferred.promise;
+    }
+
+    function checkIfFollowed(userID,followingID) {
+        var deferred = q.defer();
+
+        console.log(userID);
+        console.log(followingID);
+
+        followersModel.find({follower_userid: userID, following_userid: followingID},
+            function(err,doc) {
+                if(err) {
+                    deferred.reject(err);
+                }
+                else {
+                    console.log(doc);
+                    deferred.resolve(doc);
+                }
+            });
+
+        //return a promise
+        return deferred.promise;
+    }
+
+    function removeFollowing(userId, followingId) {
+        var deferred = q.defer();
+
+        followersModel.remove({follower_userid: userId,following_userid: followingId},
+            function(err,doc) {
+                if(err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(doc);
+
+                }
+            });
+
+        //return a promise
+        return deferred.promise;
+    }
+
+    function getFollowing(userId) {
+        var deferred = q.defer();
+
+        followersModel.find({follower_userid: userId}, function(err,doc) {
+            if(err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
+    }
+
+    function getFollowers(userId) {
+        var deferred = q.defer();
+
+        followersModel.find({following_userid: userId}, function(err,doc) {
+            if(err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(doc);
+            }
+        });
+
+        return deferred.promise;
+    }
 
 }
 

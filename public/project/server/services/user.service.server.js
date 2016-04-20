@@ -18,6 +18,15 @@ module.exports = function(app,userModel, songModel) {
     app.get("/api/project/getUserById/:id",getUserById);
     app.get("/api/project/getlikedsongs/:id", getLikedSongs);
 
+
+    app.post("/api/project/addfollowing",addFollowing);
+    app.delete("/api/project/removefollowing/:userID/:followingID",removeFollowing);
+    app.get("/api/project/following/:userID/:followingID",checkIfFollowed);
+    app.get("/api/project/getfollowing/:userID",getFollowing);
+    app.get("/api/project/getfollowers/:userID",getFollowers);
+
+
+
     // app.get("/api/project/profile/:id", profile);
 
     passport.use(new LocalStrategy(localStrategy));
@@ -188,10 +197,17 @@ module.exports = function(app,userModel, songModel) {
         res.json(user);
     }
 
-    function getUserById(req,res){
-        var id=req.params.id;
-        var user=userModel.getUserById(id);
-        return user;
+    function getUserById(req,res) {
+        userModel
+            .getUserById(req.params.id)
+            .then(function(user) {
+                    console.log("In getUserById");
+                    console.log(user);
+                    res.json(user);
+                },
+                function(err){
+                    res.status(400).send(err);
+                });
     }
 
     function addNewUser(req,res){
@@ -232,7 +248,7 @@ module.exports = function(app,userModel, songModel) {
     function getLikedSongs(req, res) {
         var userId = req.params.id;
         songModel.getLikedSongs(userId)
-            .then(function(songs){
+            .then(function(songs) {
                 console.log(songs);
                 res.send(songs);
             },function(err){
@@ -242,8 +258,86 @@ module.exports = function(app,userModel, songModel) {
     }
 
 
+    function addFollowing(req, res) {
+        var details = req.body;
 
+        userModel
+            .addFollowing(details)
+            .then(
+                //login in promise resolved
+                function(doc) {
+                    res.json(doc);
+                },
+                //send error if promise rejected
+                function(err) {
+                    res.status(400).send(err);
 
+                }
+            );
+    }
+
+    function removeFollowing(req, res) {
+
+        var userID = req.params.userID;
+        var followingID = req.params.followingID;
+
+        userModel
+            .removeFollowing(userID,followingID)
+            .then(
+                //login in promise resolved
+                function(doc) {
+                    //console.log(doc);
+                    res.json(doc);
+                },
+                //send error if promise rejected
+                function(err) {
+                    //console.log(err);
+                    res.status(400).send(err);
+
+                }
+            );
+    }
+
+    function checkIfFollowed(req,res) {
+        var userID = req.params.userID;
+        var followingID = req.params.followingID;
+
+        userModel
+            .checkIfFollowed(userID, followingID)
+            .then(function(users) {
+                    res.json(users);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                });
+
+    }
+
+    function getFollowing(req, res) {
+        var userID = req.params.userID;
+
+        userModel
+            .getFollowing(userID)
+            .then(function(users) {
+                    res.json(users);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                });
+    }
+
+    function getFollowers(req, res) {
+        var userID = req.params.userID;
+
+        userModel
+            .getFollowers(userID)
+            .then(function(users) {
+                    res.json(users);
+                },
+                function(err) {
+                    res.status(400).send(err);
+                });
+    }
 }
 
 

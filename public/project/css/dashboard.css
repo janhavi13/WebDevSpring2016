@@ -191,6 +191,10 @@ a:hover {
 }
 
 
+.disabled {
+    pointer-events: none;
+}
+
 
 
 

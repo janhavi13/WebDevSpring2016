@@ -20,7 +20,12 @@
             logout:logout,
             addNewUserByAdmin:addNewUserByAdmin,
             addLikedSong:addLikedSong,
-            getLikedSongs:getLikedSongs
+            getLikedSongs:getLikedSongs,
+            followUser:followUser,
+            unFollowUser:unFollowUser,
+            checkIfFollowed:checkIfFollowed,
+            getFollowing:getFollowing,
+            getFollowers:getFollowers
         };
         return model;
 
@@ -58,7 +63,7 @@
         }
 
         function getUserById(id){
-            return $http.get("/api/project/getUserById/"+id);
+            return $http.get("/api/project/getUserById/" + id);
         }
 
         function login(user) {
@@ -92,14 +97,42 @@
             var liked = $http.post("/api/project/addlikedsong",songLike);
             console.log(liked);
             return liked;
-        };
+        }
 
 
         function getLikedSongs(userID){
 
             return $http.get("/api/project/getlikedsongs/" + userID);
 
-        };
+        }
+
+        function followUser(userID, username, followUserID, followUsername) {
+            var follow = {"follower_userid": userID,
+                "follower_username": username,
+                "following_userid": followUserID,
+                "following_username": followUsername
+            };
+
+            return $http.post("/api/project/addfollowing",follow);
+        }
+
+        function unFollowUser(userID,follow_userID) {
+
+            return $http.delete("/api/project/removefollowing/"+userID+"/"+follow_userID);
+        }
+
+        function checkIfFollowed(userId,followingId) {
+
+            return $http.get("/api/project/following/" + userId + "/" + followingId);
+        }
+
+        function getFollowing(userID) {
+            return $http.get("/api/project/getfollowing/"+userID);
+        }
+
+        function getFollowers(userID) {
+            return $http.get("/api/project/getfollowers/"+userID);
+        }
     }
 })();
 

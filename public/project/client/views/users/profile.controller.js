@@ -4,57 +4,186 @@
         .controller("ProfileController",ProfileController);
 
 
-        function ProfileController($rootScope,$scope,UserService,$location,$routeParams){
+        function ProfileController($rootScope,$scope,UserService,$location,$routeParams) {
 
-        var currentUser= $rootScope.currentUser;
+
+        var vm = this;
         var profileUserId = $routeParams.userid;
-        var vm=this;
-        vm.message= null;
-        vm.firstName=currentUser.firstName;
-        vm.lastName=currentUser.lastName;
-        vm.username=currentUser.username;
-        vm.password=currentUser.password;
-        vm.email=currentUser.emails;
-        vm.phones=currentUser.phones;
-        vm.update=update;
+        var currentUser= $rootScope.currentUser;
+
+        vm.followUser = followUser;
+        vm.unfollowUser = unfollowUser;
 
 
-        console.log("vv",$routeParams);
 
 
-        function init(){
-            console.log("in init");
-            getSongs(profileUserId);
+        vm.edit = false;
+        vm.readonly = false;
+        vm.self = false;
+        vm.followed = false;
+
+        function init() {
+
+            if (!currentUser) {
+                $location.url("/login");
+            }
+            else {
+                if (profileUserId == $rootScope.currentUser._id) {
+                    console.log("Here");
+                    vm.self = true;
+                    console.log("UserID with logged in matched!");
+                    vm.message = null;
+                    vm.update = update;
+                    vm.firstName = currentUser.firstName;
+                    vm.lastName = currentUser.lastName;
+                    vm.username = currentUser.username;
+                    vm.password = currentUser.password;
+                    vm.email = currentUser.emails;
+                    vm.phone = currentUser.phones;
+                    getSongs(profileUserId);
+                    getFollowing(profileUserId);
+                    getFollowers(profileUserId);
+                }
+                else {
+                    vm.readonly = true;
+                    console.log("UserID with logged in did not match!");
+                    ifFollowed();
+                    UserService
+                        .getUserById(profileUserId)
+                        .then(function(response) {
+                            console.log("In new init", response);
+                            var currentUser = response.data;
+                            if(currentUser !== 'undefined') {
+                                vm.firstName = currentUser.firstName === null || currentUser.firstName === 'undefined' ? 'No information found!' : currentUser.firstName;
+                                vm.lastName = currentUser.lastName === null || currentUser.firstName === 'undefined' ? 'No information found!' : currentUser.lastName;
+                                vm.username = currentUser.username;
+                                vm.password = currentUser.password;
+                                vm.email = currentUser.emails;
+                                vm.phone = currentUser.phones === null  || currentUser.firstName === 'undefined' ? 'No phones Found!' : currentUser.phones;
+                            }
+
+                        }, function (err) {
+                            console.log(err);
+                        });
+
+                    getSongs(profileUserId);
+                    getFollowing(profileUserId);
+                    getFollowers(profileUserId);
+                }
+            }
         }
 
         init();
 
-        function update(username,password,firstName,lastName,email,phones){
-            var newDetails= {"username" : username, "firstName": firstName,
+        function update(username, password, firstName, lastName, email, phones) {
+            var newDetails= {"username": username, "firstName": firstName,
                 "lastName":lastName , "emails" :email ,"phones" :phones ,"password" :password,
                 "roles":currentUser.roles};
 
-            console.log("the details from view",newDetails);
-            UserService.updateUser(newDetails,currentUser._id)
+            UserService.updateUser(newDetails, currentUser._id)
                 .then(
-                    function(response){
-                        $rootScope.currentUser=response.data;
+                    function(response) {
+                        $rootScope.currentUser = response.data;
                         vm.message="Profile Update";
                     },
-                    function(err){
+                    function(err) {
                         vm.message="Couldn't update the profile";
                     });
         }
 
 
-        function getSongs(userid){
+        function getSongs(userid) {
             UserService
                 .getLikedSongs(userid)
-                .then(function(res){
-                    if(res.data.length==0){
+                .then(function(res) {
+                    if(res.data.length==0) {
                         vm.songs = null;
-                    }else{
+                    } else {
                         vm.songs = res.data;
+                    }
+
+                });
+        }
+
+
+        function followUser() {
+
+            var loggedinUser = $rootScope.currentUser;
+            var profileUserName = vm.username;
+
+            console.log(loggedinUser._id ,loggedinUser.username, profileUserId, profileUserName);
+            UserService
+                .followUser(loggedinUser._id ,loggedinUser.username, profileUserId, profileUserName)
+                .then(
+                    function(res) {
+                        console.log(res);
+                        ifFollowed();
+                    },function(err) {
+                        console.log(err);
+                    });
+        }
+
+        function unfollowUser() {
+
+            var loggedinUser = $rootScope.currentUser;
+
+            console.log(loggedinUser._id, profileUserId);
+            UserService
+                .unFollowUser(loggedinUser._id, profileUserId)
+                .then(
+                    function(res) {
+                        console.log(res);
+                        ifFollowed();
+                    },function(err) {
+                        console.log(err);
+                    });
+        }
+
+        function ifFollowed() {
+            var loggedinUser = $rootScope.currentUser;
+
+            console.log(loggedinUser._id, profileUserId);
+            UserService
+                .checkIfFollowed(loggedinUser._id, profileUserId)
+                .then(
+                    function(res){
+                        console.log(res.data[0]);
+                        if(res.data[0]) {
+                            vm.followed = true;
+                        } else {
+                            vm.followed = false;
+                        }
+
+                    }, function(err) {
+                        console.log(err);
+                    });
+        }
+
+        function getFollowing(userid) {
+            UserService
+                .getFollowing(userid)
+                .then(function(res) {
+                    console.log("Following");
+                    console.log(res.data);
+                    if(res.data.length==0) {
+                        vm.following = null;
+                    } else {
+                        vm.following = res.data;
+                    }
+
+                });
+        }
+
+        function getFollowers(userid) {
+            UserService
+                .getFollowers(userid)
+                .then(function(res){
+                    console.log("Followers");
+                    console.log(res.data);
+                    if(res.data.length==0) {
+                        vm.followers = null;
+                    } else {
+                        vm.followers = res.data;
                     }
 
                 });

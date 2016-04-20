@@ -7,40 +7,52 @@
     <div class="row">
         <h1 class="page-header">Profile</h1>
         <div ng-show="model.message" class="alert alert-success" role="alert">
-            {{model.message}}</div>
+            {{model.message}}
+        </div>
+
+        <div ng-show="!model.self && !model.followed">
+            <a ng-hide="model.edit" class="btn btn-primary" ng-click="model.followUser()">Follow</a>
+        </div>
+
+        <div ng-show="!model.self && model.followed">
+            <a ng-hide="model.edit" class="btn btn-primary" ng-click="model.unfollowUser()">Unfollow</a>
+        </div>
+
         <form class="form-horizontal">
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="uname"> UserName</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="UserName" id="uname" ng-model="model.username">
+                    <input type="text" class="form-control" ng-class="{'disabled': model.readonly}" placeholder="UserName" id="uname" ng-model="model.username">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="password">Password</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Password" id="password" ng-model="model.password">
+                    <input type="text" class="form-control" ng-class="{'disabled': model.readonly}" placeholder="Password" id="password" ng-model="model.password">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="fname">First Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="First Name" id="fname" ng-model="model.firstName">
+                    <input type="text" class="form-control" ng-class="{'disabled': model.readonly}"placeholder="First Name" id="fname" ng-model="model.firstName">
                 </div>
             </div>
+
+
 
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="lname">Last Name</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="Last Name" id="lname" ng-model="model.lastName">
+                    <input type="text" class="form-control" ng-class="{'disabled': model.readonly}" placeholder="Last Name" id="lname" ng-model="model.lastName">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="email">Email</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="youremail@domain.com" id="email" ng-model="model.email">
+                    <input type="text" class="form-control" ng-class="{'disabled': model.readonly}" placeholder="youremail@domain.com" id="email" ng-model="model.email">
                 </div>
             </div>
 
@@ -48,21 +60,21 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">Phones</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" placeholder="617888888"  ng-model="model.phones">
+                    <input type="text" class="form-control" ng-class="{'disabled': model.readonly}" placeholder="617888888"  ng-model="model.phones">
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-hide="model.readonly">
                 <div class="col-sm-offset-2 col-sm-10">
                     <button type="button" class="btn btn-primary form-control" ng-click="model.update(model.username,model.password,
                         model.firstName,model.lastName,model.email,model.phones)">Update</button>
                 </div>
-            </div> </form></div>
+            </div></form></div>
 
 <div class="row">
             <div class="search-result">
                 <h2 class="page-header"> Favourites </h2>
-                <h6 ng-hide="model.songs">no favourites</h6>
+                <h6 ng-hide="model.songs">No favourites!</h6>
                 <table class="table table-bordered table-responsive rounded-table" ng-show="model.songs">
                     <thead>
                     <th>Song</th>
@@ -75,6 +87,31 @@
                 </table>
             </div>
 </div>
+
+    <div class="col-sm-offset-2 col-sm-8">
+        <h3>People you follow: </h3>
+        <h4 ng-hide="model.following">No one!</h4>
+        <table class="table table-bordered table-responsive rounded-table" ng-show="model.following">
+            <thead>
+            <th>People</th>
+            </thead>
+            <tr ng-repeat="user in model.following">
+                <td><a href="#/profile/{{user.following_userid}}">{{user.following_username}}</a></td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-sm-offset-2 col-sm-8 include-view">
+        <h3>People following you: </h3>
+        <h4 ng-hide="model.followers">No one!</h4>
+        <table class="table table-bordered table-responsive rounded-table" ng-show="model.followers">
+            <thead>
+            <th>People</th>
+            </thead>
+            <tr ng-repeat="user in model.followers">
+                <td><a href="#/profile/{{user.follower_userid}}">{{user.follower_username}}</a></td>
+            </tr>
+        </table>
+    </div>
 
 </div>
 

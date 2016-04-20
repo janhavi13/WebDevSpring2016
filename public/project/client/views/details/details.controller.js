@@ -95,16 +95,17 @@
                         console.log(response.data);
                         if(response.data.length!=0){
                             vm.comments = response.data;
-                            if(vm.user){
+                            if(vm.user) {
 
                                 response.data.forEach(function(comment){
+                                    console.log("Comment", comment);
                                     if(comment.userID == vm.user._id){
                                         vm.userComment = comment.comment;
                                         vm.isNewComment = false;
                                     }
                                 });
                             }
-                        }else{
+                        }else {
                             vm.comments = null;
                         }
 

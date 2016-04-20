@@ -44,8 +44,7 @@
             UserService.register(user)
                 .then(function (user){
                         if(user.data!=null) {
-                            console.log("Register");
-                            console.log(user);
+
                             $rootScope.currentUser=user;
                             $location.url("/profile/" + user.data._id);
                         }
@@ -57,15 +56,7 @@
                         console.log(error);
                     })
 
-            /*UserService.register(user)
-                .then(function (user){
-                    UserService.setCurrentUser(user.data);
-                        console.log("user",user.username);
-                    $location.url("/profile");
-                },
-                function (error){
-                    vm.message="Username already";
-                })*/
+
         }
     }
 })();

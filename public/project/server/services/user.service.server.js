@@ -140,7 +140,7 @@ module.exports = function(app,userModel, songModel) {
         }
         if(typeof updatedUserDetails.roles == "string") {
             updatedUserDetails.roles = updatedUserDetails.roles.split(",");
-            console.log("splitted the roles",updatedUserDetails.roles);
+
         }
 
         userModel.updateUser(id,updatedUserDetails)
@@ -154,7 +154,7 @@ module.exports = function(app,userModel, songModel) {
                             });
                 },
                 function(err){
-                    console.log("error");
+
                     res.status(400).send(err);
                 });
     }
@@ -201,8 +201,7 @@ module.exports = function(app,userModel, songModel) {
         userModel
             .getUserById(req.params.id)
             .then(function(user) {
-                    console.log("In getUserById");
-                    console.log(user);
+
                     res.json(user);
                 },
                 function(err){
@@ -249,7 +248,7 @@ module.exports = function(app,userModel, songModel) {
         var userId = req.params.id;
         songModel.getLikedSongs(userId)
             .then(function(songs) {
-                console.log(songs);
+
                 res.send(songs);
             },function(err){
                 res.status(400).send(err);
@@ -286,12 +285,12 @@ module.exports = function(app,userModel, songModel) {
             .then(
                 //login in promise resolved
                 function(doc) {
-                    //console.log(doc);
+
                     res.json(doc);
                 },
-                //send error if promise rejected
+
                 function(err) {
-                    //console.log(err);
+
                     res.status(400).send(err);
 
                 }

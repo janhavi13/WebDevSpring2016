@@ -53,9 +53,7 @@ module.exports = function(app, songModel) {
         var userid = updated.userid;
         var songID = updated.songID;
         var comment = updated.comment;
-        console.log("body:",updated);
-        console.log("server comments",comment);
-        console.log("song id", songID);
+
         songModel
             .updateLikedSong(userid,songID,comment)
             .then(function(response){
@@ -68,7 +66,7 @@ module.exports = function(app, songModel) {
     };
 
     function deleteSong(req,res){
-        console.log("DeleteSong");
+
         var userID  = req.params.userid;
         var songID = req.params.songid;
 

@@ -9,7 +9,7 @@ module.exports=function(app,uuid,db,mongoose){
 
 
     var userlikesSchema=require("./model/userlikes.schema.server.js")(mongoose);
-    console.log("db connnection", mongoose);
+
     var relationModel = mongoose.model('ProjectRelations',userlikesSchema);
 
     var userModel=require("./model/user.model.js")(uuid,db,mongoose,relationModel);

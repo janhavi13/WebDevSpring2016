@@ -54,7 +54,7 @@
         }
 
         function getAllUsers(){
-            console.log("getAllUsers");
+
             return $http.get("/api/project/getAllUsers");
         }
 
@@ -70,7 +70,7 @@
             return $http.post("/api/project/login",user);}
 
         function logout() {
-            console.log("entered logout controller");
+
             return $http.post("/api/project/logout");
         }
 
@@ -81,8 +81,7 @@
 
         function addLikedSong(songDetails,userDetails){
 
-            console.log(songDetails);
-            console.log(userDetails);
+
 
             var songLike = {
                 "songID":songDetails.id,
@@ -95,7 +94,7 @@
             };
 
             var liked = $http.post("/api/project/addlikedsong",songLike);
-            console.log(liked);
+
             return liked;
         }
 

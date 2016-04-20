@@ -21,7 +21,7 @@
             }
             UserService.login(user)
                 .then(function(response) {
-                    console.log(response);
+
                     $rootScope.currentUser = response.data;
                     $location.url("/profile/" + response.data._id);
                     },

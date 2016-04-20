@@ -67,7 +67,7 @@ module.exports= function(db){
                     deferred.reject(err);
                 }
             } );
-        console.log("user details emails",userDetails.emails);
+
         return deferred.promise;
     }
 
@@ -75,7 +75,7 @@ module.exports= function(db){
         var deferred= q.defer();
         var userName=userDetails.username;
         var email=userDetails.email;
-        console.log("user details",userDetails);
+
         User.create(userDetails,function(err,doc){
             if(err) {
                 deferred.reject(err);
@@ -223,8 +223,6 @@ module.exports= function(db){
     function checkIfFollowed(userID,followingID) {
         var deferred = q.defer();
 
-        console.log(userID);
-        console.log(followingID);
 
         followersModel.find({follower_userid: userID, following_userid: followingID},
             function(err,doc) {
@@ -232,7 +230,7 @@ module.exports= function(db){
                     deferred.reject(err);
                 }
                 else {
-                    console.log(doc);
+
                     deferred.resolve(doc);
                 }
             });

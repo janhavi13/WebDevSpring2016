@@ -20,7 +20,7 @@
                 return;
             }
 
-            console.log(playlist);
+
 
 
             if(playlist.desc == null){

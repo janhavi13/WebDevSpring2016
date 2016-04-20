@@ -19,7 +19,7 @@
 
 
         function findSongByTrackId(trackID, callback) {
-            console.log("TrackID", trackID);
+
             $http.get("https://api.spotify.com/v1/tracks/"+trackID)
                 .success(callback);
         }

@@ -13,7 +13,7 @@
 
         function logout() {
 
-            console.log("entered header controller");
+
             UserService.logout()
                 .then(function () {
                         $rootScope.currentUser = null;
@@ -25,8 +25,8 @@
         }
 
         function visitProfile(){
-            console.log("visitProfile");
-            console.log($rootScope);
+
+
             $location.url("/profile/" + $rootScope.currentUser._id)
         }
     }

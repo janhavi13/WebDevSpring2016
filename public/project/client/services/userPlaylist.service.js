@@ -62,8 +62,6 @@
                 "desc":newPlaylist.desc
             }
 
-            console.log(Playlist);
-            console.log(playlists);
             playlists.push(Playlist);
             callback();
         }

@@ -29,9 +29,9 @@
             }
             else {
                 if (profileUserId == $rootScope.currentUser._id) {
-                    console.log("Here");
+
                     vm.self = true;
-                    console.log("UserID with logged in matched!");
+
                     vm.message = null;
                     vm.update = update;
                     vm.firstName = currentUser.firstName;
@@ -46,12 +46,12 @@
                 }
                 else {
                     vm.readonly = true;
-                    console.log("UserID with logged in did not match!");
+
                     ifFollowed();
                     UserService
                         .getUserById(profileUserId)
                         .then(function(response) {
-                            console.log("In new init", response);
+
                             var currentUser = response.data;
                             if(currentUser !== 'undefined') {
                                 vm.firstName = currentUser.firstName === null || currentUser.firstName === 'undefined' ? 'No information found!' : currentUser.firstName;
@@ -111,12 +111,12 @@
             var loggedinUser = $rootScope.currentUser;
             var profileUserName = vm.username;
 
-            console.log(loggedinUser._id ,loggedinUser.username, profileUserId, profileUserName);
+
             UserService
                 .followUser(loggedinUser._id ,loggedinUser.username, profileUserId, profileUserName)
                 .then(
                     function(res) {
-                        console.log(res);
+
                         ifFollowed();
                     },function(err) {
                         console.log(err);
@@ -127,12 +127,12 @@
 
             var loggedinUser = $rootScope.currentUser;
 
-            console.log(loggedinUser._id, profileUserId);
+
             UserService
                 .unFollowUser(loggedinUser._id, profileUserId)
                 .then(
                     function(res) {
-                        console.log(res);
+
                         ifFollowed();
                     },function(err) {
                         console.log(err);
@@ -142,12 +142,12 @@
         function ifFollowed() {
             var loggedinUser = $rootScope.currentUser;
 
-            console.log(loggedinUser._id, profileUserId);
+
             UserService
                 .checkIfFollowed(loggedinUser._id, profileUserId)
                 .then(
                     function(res){
-                        console.log(res.data[0]);
+
                         if(res.data[0]) {
                             vm.followed = true;
                         } else {
@@ -163,8 +163,8 @@
             UserService
                 .getFollowing(userid)
                 .then(function(res) {
-                    console.log("Following");
-                    console.log(res.data);
+
+
                     if(res.data.length==0) {
                         vm.following = null;
                     } else {
@@ -178,8 +178,8 @@
             UserService
                 .getFollowers(userid)
                 .then(function(res){
-                    console.log("Followers");
-                    console.log(res.data);
+
+
                     if(res.data.length==0) {
                         vm.followers = null;
                     } else {

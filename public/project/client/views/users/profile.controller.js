@@ -39,7 +39,7 @@
                     vm.username = currentUser.username;
                     vm.password = currentUser.password;
                     vm.email = currentUser.emails;
-                    vm.phone = currentUser.phones;
+                    vm.phones = currentUser.phones;
                     getSongs(profileUserId);
                     getFollowing(profileUserId);
                     getFollowers(profileUserId);
@@ -54,12 +54,12 @@
 
                             var currentUser = response.data;
                             if(currentUser !== 'undefined') {
-                                vm.firstName = currentUser.firstName === null || currentUser.firstName === 'undefined' ? 'No information found!' : currentUser.firstName;
-                                vm.lastName = currentUser.lastName === null || currentUser.firstName === 'undefined' ? 'No information found!' : currentUser.lastName;
+                                vm.firstName = currentUser.firstName;
+                                vm.lastName = currentUser.lastName;
                                 vm.username = currentUser.username;
                                 vm.password = currentUser.password;
                                 vm.email = currentUser.emails;
-                                vm.phone = currentUser.phones === null  || currentUser.firstName === 'undefined' ? 'No phones Found!' : currentUser.phones;
+                                vm.phones = currentUser.phones;
                             }
 
                         }, function (err) {

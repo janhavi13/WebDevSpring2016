@@ -74,6 +74,7 @@ module.exports = function(app,userModel, songModel) {
     }
 
     function login(req, res) {
+        console.log(req);
         var user = req.user;
         res.json(user);
     }
@@ -139,7 +140,91 @@ module.exports = function(app,userModel, songModel) {
             );
     }
 
-    function updateUser(req,res){
+
+    function updateUser(req, res) {
+        var id=req.params.id;
+        var updatedUser = req.body;
+
+        userModel
+            .getUserById(id)
+            .then(function(user) {
+
+                    if(user) {
+                        //check if the password was updated by user and handle accordingly
+                        if(user.password != updatedUser.password) {
+                            updatedUser.password = bcrypt.hashSync(updatedUser.password);
+
+                        } /*&& !bcrypt.compareSync(user.password, updatedUser.password)) {
+                            updatedUser.password = bcrypt.hashSync(updatedUser.password);*/
+
+
+                        // user.password != updatedUser.password && !bcrypt.compareSync(user.password, updatedUser.password)
+
+                        userModel
+                            .updateUser(id, updatedUser)
+                            .then(
+                                //login in promise resolved
+                                function(doc){
+                                    req.session.currentUser = doc;
+                                    res.json(doc);
+                                },
+                                //send error if promise rejected
+                                function(err){
+                                    res.status(400).send(err);
+                                }
+                            )
+                    }else{
+                        res.send(400);
+                    }
+                },
+                function(err){
+                    res.status(400).send(err);
+                });
+    }
+
+
+   /* function updateUser(req,res) {
+        var id=req.params.id;
+        var updatedUserDetails = req.body;
+
+        if(!isAdmin(req.user)) {
+            updatedUserDetails.roles=["student"];
+        }
+        if(typeof updatedUserDetails.roles == "string") {
+            updatedUserDetails.roles = updatedUserDetails.roles.split(",");
+        }
+
+        userModel
+            .findUserByUsername(updatedUserDetails.username)
+            .then(function(user){
+                    if(!user) {
+                        res.json(null);
+                    }
+                    else{
+                        updatedUserDetails.password = bcrypt.hashSync(updatedUserDetails.password);
+                        userModel.updateUser(id,updatedUserDetails)
+                            .then(function(user){
+                                    userModel.getUserById(id)
+                                        .then(function (response){
+                                                res.json(response);
+                                            },
+                                            function(err){
+                                                res.status(400).send(err);
+                                            });
+                                },
+                                function(err){
+                                    res.status(400).send(err);
+                                });
+                    }
+                },
+                function(err){
+                    res.status(400).send(err);
+                });
+    }
+*/
+
+
+    /*function updateUser(req,res){
         var id=req.params.id;
         var updatedUserDetails = req.body;
 
@@ -166,7 +251,7 @@ module.exports = function(app,userModel, songModel) {
 
                     res.status(400).send(err);
                 });
-    }
+    }*/
 
     function deleteUser(req,res){
         if(isAdmin(req.user)){

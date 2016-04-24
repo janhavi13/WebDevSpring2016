@@ -33,7 +33,8 @@ module.exports= function(db){
         return User.findOne({"username":username,"password":password})
     }
 
-    function findUserByUsername(userName){
+    function findUserByUsername(userName) {
+        console.log("In findUser..", userName);
         var deferred= q.defer();
         User.findOne (
             {"username": userName},
@@ -45,10 +46,13 @@ module.exports= function(db){
                     deferred.reject(err);
                 }
             } );
+
+
         return deferred.promise;
     }
 
     function updateUser (id, userDetails) {
+        console.log("userDetails", userDetails);
         var deferred= q.defer();
         User.update (
             {"_id": id},

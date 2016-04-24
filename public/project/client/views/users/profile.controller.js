@@ -80,14 +80,18 @@
                 "lastName":lastName , "emails" :email ,"phones" :phones ,"password" :password,
                 "roles":currentUser.roles};
 
+
+            console.log("newDetails: ", newDetails);
+            console.log("currentUser:", currentUser._id)
+
             UserService.updateUser(newDetails, currentUser._id)
                 .then(
                     function(response) {
-                        $rootScope.currentUser = response.data;
-                        vm.message="Profile Update";
+                        $rootScope.currentUser = response.config.data;
+                        vm.message="Profile updated!";
                     },
                     function(err) {
-                        vm.message="Couldn't update the profile";
+                        vm.message="Couldn't update profile.";
                     });
         }
 

@@ -45,8 +45,8 @@
             return $http.post("/api/project/register", user);
         }
 
-        function updateUser(user,currentUserId){
-            return $http.put("/api/project/updateUser/"+currentUserId,user);
+        function updateUser(user, currentUserId) {
+            return $http.put("/api/project/updateUser/" + currentUserId, user);
         }
 
         function deleteUser(user){
@@ -67,7 +67,9 @@
         }
 
         function login(user) {
-            return $http.post("/api/project/login",user);}
+
+            return $http.post("/api/project/login",user);
+        }
 
         function logout() {
 

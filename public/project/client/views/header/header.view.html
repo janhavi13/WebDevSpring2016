@@ -23,6 +23,10 @@
                 <li ng-show="currentUser" class="username" ng-class="{'active': $location.url()=='/profile'}">
                     <a ng-click="visitProfile()">{{currentUser.username}}</a></li>
 
+                <li ng-show="currentUser.roles.indexOf('admin') >= 0" ng-class="{'active': $location.url() == '/admin'}"
+                    data-toggle="collapse" data-target=".navbar-collapse.in" class="add-under-line">
+                    <a href="#/admin">Admin</a></li>
+
                 <li ng-show="currentUser">
                     <a href="#/home" class="add-under-line" ng-click="model.logout()">Logout</a>
                 </li>

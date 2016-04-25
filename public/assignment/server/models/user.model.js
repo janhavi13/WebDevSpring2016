@@ -39,7 +39,6 @@ module.exports= function(db){
 
     function updateUser (id, userDetails) {
         var deferred= q.defer();
-        console.log("****",userDetails);
         User.update (
             {"_id": id},
             {$set: {"username":userDetails.username,
@@ -48,7 +47,7 @@ module.exports= function(db){
                 "lastName":userDetails.lastName,
                 "emails":userDetails.emails,
                 "phones":userDetails.phones,
-            "roles":userDetails.roles}},
+                "roles":userDetails.roles}},
             function (err, stats) {
                 if(!err){
                     deferred.resolve(stats);
@@ -57,7 +56,6 @@ module.exports= function(db){
                     deferred.reject(err);
                 }
             } );
-        console.log("emails",userDetails.emails);
         return deferred.promise;
     }
 
@@ -144,7 +142,6 @@ module.exports= function(db){
         });
         return deferred.promise;
     }
-
 }
 
 

@@ -1,5 +1,6 @@
 var passport=require('passport');
 var LocalStrategy =require('passport-local').Strategy;
+var bcrypt=require('bcrypt-nodejs');
 
 module.exports = function(app,userModel) {
 
@@ -9,7 +10,6 @@ module.exports = function(app,userModel) {
     app.get('/api/assignment/loggedin',loggedin);
     app.post("/api/assignment/addNewUser",auth,addNewUser);
     app.post('/api/assignment/register',register);
-
     app.put("/api/assignment/updateUser/:id",auth,updateUser);
     app.delete("/api/assignment/deleteUser/:id",auth,deleteUser);
     app.get("/api/assignment/getAllUsers",auth,getAllUsers);
@@ -23,14 +23,21 @@ module.exports = function(app,userModel) {
     function localStrategy(username, password, done) {
 
         userModel
-            .findUserByCredentials( username, password)
+            .findUserByUsername( username)
             .then(
                 function(user) {
-                    if (!user) { return done(null, false); }
-                    return done(null, user);
+                    if (user && bcrypt.compareSync(password,user.password))
+                    {
+                        return done(null, user);
+                    }
+                    else{
+                        return done(null, false);
+                    }
                 },
                 function(err) {
-                    if (err) { return done(err); }
+                    if (err) {
+                        return done(err);
+                    }
                 }
             );
     }
@@ -92,6 +99,7 @@ module.exports = function(app,userModel) {
                     if(user) {
                         res.json(null);
                     } else {
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return userModel.createNewUser(newUser);
                     }
                 },
@@ -117,33 +125,45 @@ module.exports = function(app,userModel) {
             );
     }
 
-    function updateUser(req,res){
-        var id=req.params.id;
+    function updateUser(req,res) {
+        var id = req.params.id;
         var updatedUserDetails = req.body;
-
-        if(!isAdmin(req.user)) {
+        if (!isAdmin(req.user)) {
             delete updatedUserDetails.roles;
-            updatedUserDetails.roles=["student"];
+            updatedUserDetails.roles = ["student"];
         }
-        if(typeof updatedUserDetails.roles == "string") {
+        if (typeof updatedUserDetails.roles == "string") {
             updatedUserDetails.roles = updatedUserDetails.roles.split(",");
-            console.log("splitted the roles",updatedUserDetails.roles);
         }
 
-        userModel.updateUser(id,updatedUserDetails)
-            .then(function(user){
-                    userModel.getUserById(id)
-                        .then(function (response){
-                                res.json(response);
+        userModel
+            .findUserByUsername(updatedUserDetails.username)
+            .then(function (user) {
+                if (user) {
+                    if (bcrypt.compareSync(updatedUserDetails.password,user.password) == false) {
+                        updatedUserDetails.password = bcrypt.hashSync(updatedUserDetails.password);
+                    }
+                    userModel.updateUser(id, updatedUserDetails)
+                        .then(function (user) {
+                                userModel.getUserById(id)
+                                    .then(function (response) {
+                                            res.json(response);
+                                        },
+                                        function (err) {
+                                            res.status(400).send(err);
+                                        });
                             },
-                            function(err){
+                            function (err) {
                                 res.status(400).send(err);
                             });
-                },
-                function(err){
-                    console.log("error");
+                }
+                else{
                     res.status(400).send(err);
-                });
+                }
+            }),
+            function(err){
+                res.status(400).send(err);
+            };
     }
 
     function deleteUser(req,res){
@@ -190,9 +210,9 @@ module.exports = function(app,userModel) {
         return user;
     }
 
-    function addNewUser(req,res){
-        var newUser=req.body;
-        if(newUser.roles && newUser.roles.length > 1) {
+    function addNewUser(req,res) {
+        var newUser = req.body;
+        if (newUser.roles && newUser.roles.length > 1) {
             newUser.roles = newUser.roles;
         } else {
             newUser.roles = ['student'];
@@ -200,14 +220,16 @@ module.exports = function(app,userModel) {
 
         userModel
             .findUserByUsername(newUser.username)
-            .then(function (user) {
-                    if (user) {
+            .then(
+                function(user){
+                    if(user) {
                         res.json(null);
                     } else {
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return userModel.createNewUser(newUser);
                     }
                 },
-                function (err) {
+                function(err){
                     res.status(400).send(err);
                 }
             )

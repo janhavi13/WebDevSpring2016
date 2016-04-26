@@ -1,0 +1,40 @@
+<body>
+<div class="container" ng-controller="SearchController">
+
+    <h1 class="page-header">Search Tracks</h1>
+    <div class="row">
+        <div class="col-lg-12" align="center">
+            <div class="form-group">
+                <input ng-model="model.track" id="trackID" class="form-control " placeholder="Track Name"/></div>
+
+            <div class="form-group">
+                <a class="btn btn-primary form-control" role="button" ng-click="model.searchTrack(model.track)">Search</a>
+            </div></div>
+    </div>
+
+    <div>
+        <section ng-show="model.searchResult">
+            <h3 class="text-uppercase">Track List</h3>
+            <table class="table  table-responsive">
+                <thead>
+                <tr>
+                    <th>Name of the Track</th>
+                    <th>Artist</th>
+                    <th>Preview</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="track in model.searchResult.tracks.items">
+                    <td>{{track.name}}</td>
+                    <td>{{track.artists[0].name}}</td>
+                    <td style="color: orange">
+                        <a href="#/details/{{track.id}}">Details</a></td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+</div>
+</body>

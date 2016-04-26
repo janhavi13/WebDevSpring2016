@@ -73,6 +73,12 @@
             })
 
 
+            /*.when("/getglobaltracks", {
+                templateUrl: "views/home/toppartyjams.view.html",
+                controller:"HomeController",
+                controllerAs:"model"
+            })*/
+
             .when("/myPlaylists",{
                 templateUrl:"views/users/myPlaylists.view.html",
                 controller:"MyPlaylists"

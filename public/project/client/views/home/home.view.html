@@ -3,7 +3,7 @@
 <body>
 
 
-<div class="container">
+<div class="container" ng-controller="HomeController">
 
 
 
@@ -15,7 +15,7 @@
     <!--Effect: Bottom to Top -->
     <div align="center" style="color: white"> <h1>Welcome to MTunes</h1> </div>
     <div class="pic" align="center">
-        <img class="img-responsive" src="../client/views/assets/paper_img/coll.png" alt="Pic"/>
+        <img class="img-responsive" src="../client/views/assets/paper_img/coll.png" alt="Pic" width="500px" height="500px"/>
 
     </div>
     <div class="row">
@@ -25,25 +25,49 @@
         </div>
 
         <div class="col-lg-4 col-md-4 col-xs-4 thumb">
-            <a class="thumbnail" href="#/search">
+            <a ng-click="model.searchGlobalTrack()" class="thumbnail">
                 <img class="img-responsive" src="../client/views/assets/paper_img/h5.png" alt="">
             </a>
         </div>
         <div class="col-lg-4 col-md-4 col-xs-4 thumb">
-            <a class="thumbnail" href="#/search">
+            <a ng-click="model.searchUSATrack()" class="thumbnail">
                 <img class="img-responsive" src="../client/views/assets/paper_img/h6.png" alt="">
             </a>
         </div>
         <div class="col-lg-4 col-md-4 col-xs-4 thumb">
-            <a class="thumbnail" href="#/search">
-                <img class="img-responsive" src="../client/views/assets/paper_img/h4.png" alt="">
+            <a ng-click="model.searchMaroonTrack()" class="thumbnail">
+                <img class="img-responsive" src="../client/views/assets/paper_img/h8.jpg" alt="">
             </a>
         </div>
 
+        <div id="global">
+            <section ng-show="model.searchResult">
+                <h3 class="text-uppercase">Featured List</h3>
+                <table class="table table-responsive">
+                    <thead>
+                    <tr>
+                        <th>Name of the Track</th>
+                        <th>Artist</th>
+                        <th>Preview</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="track in model.searchResult.tracks">
+                        <td>{{track.name}}</td>
+                        <td>{{track.artists[0].name}}</td>
+                        <td style="color: orange">
+                            <a href="#/details/{{track.id}}">Details</a></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
 
 
-
-    </div></div>
+    </div>
+    </div>
 
 
 </body>
